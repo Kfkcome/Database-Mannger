@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="swinedb.mapper.ProteinMapper">
+
+    <resultMap id="BaseResultMap" type="swinedb.domain.Protein">
+            <id property="proteinId" column="protein_id" jdbcType="VARCHAR"/>
+            <result property="proteinFunction" column="protein_function" jdbcType="VARCHAR"/>
+            <result property="proteinName" column="protein__name" jdbcType="VARCHAR"/>
+            <result property="proteinLen" column="protein_len" jdbcType="VARCHAR"/>
+            <result property="proteinWeigth" column="protein_weigth" jdbcType="VARCHAR"/>
+            <result property="cdsId" column="cds_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        protein_id,protein_function,protein__name,
+        protein_len,protein_weigth,cds_id
+    </sql>
+</mapper>
