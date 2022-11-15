@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="swinedb.mapper.TranscriptMapper">
 
-    <resultMap id="BaseResultMap" type="swinedb.domain.Transcript">
+    <resultMap id="BaseResultMap" type="swine_search.domain.Transcript">
             <id property="transId" column="trans_id" jdbcType="VARCHAR"/>
             <result property="geneId" column="gene_id" jdbcType="VARCHAR"/>
             <result property="transStart" column="trans_start" jdbcType="INTEGER"/>
