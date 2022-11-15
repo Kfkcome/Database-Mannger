@@ -15,7 +15,7 @@ public class Chromosome implements Serializable {
 
     private String chrNum;
 
-    @TableField("chr_source")
+    @TableField("chr_sourse")
     private String chrSource;
 
     private static final long serialVersionUID = 1L;
