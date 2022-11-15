@@ -18,7 +18,7 @@ public class ResponseDataUtils {
         String oldFirstChar = String.valueOf(simpleName.charAt(0));
         String lowerCaseClassName = simpleName.toLowerCase();
         String newFirstChar = String.valueOf(lowerCaseClassName.charAt(0));
-        String value = simpleName.replace(oldFirstChar, newFirstChar);
+        String value = simpleName.replaceFirst(oldFirstChar, newFirstChar);
         return value + CommonConstants.SUFFIX;
     }
 

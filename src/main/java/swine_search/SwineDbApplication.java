@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("swind")
+@MapperScan("swine_search.mapper")
 public class SwineDbApplication {
 
     public static void main(String[] args) {

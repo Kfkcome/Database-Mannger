@@ -1,5 +1,6 @@
 package swine_search.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import lombok.Data;
@@ -10,6 +11,7 @@ import lombok.Data;
 @TableName(value ="protein")
 @Data
 public class Protein implements Serializable {
+    @TableId
     private String proteinId;
 
     private String proteinFunction;

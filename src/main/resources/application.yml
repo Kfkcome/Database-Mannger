@@ -1,11 +1,26 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306?useUnicode=true&characterEncoding=utf8&serverTime=UTC
+    url: jdbc:mysql://gz-cynosdbmysql-grp-lqdbgset.sql.tencentcdb.com:23453
     username: root
-    password: 111111
+    password: Du061224
 server:
   port: 8080
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+springdoc:
+  packages-to-scan: swine_search.controller
+  swagger-ui:
+    # 修改Swagger UI路径
+    # /api-docs->/swagger-ui/index.html
+    path: /api-docs
+    # 开启Swagger UI界面
+    enabled: true
+  api-docs:
+    # 修改api-docs路径
+    path: /v3/api-docs
+    # 开启api-docs
+    enabled: true
+  # 配置需要生成接口文档的接口路径
+  # paths-to-match: /data/**,/admin/**

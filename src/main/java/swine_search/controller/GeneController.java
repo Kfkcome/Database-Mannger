@@ -24,7 +24,7 @@ public class GeneController {
     @Autowired
     GeneService geneService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseResult getGeneById(@PathVariable Integer id) {
         Gene gene = geneService.getById(id);
         return ResponseDataUtils.getResponseResult(gene.getClass(), gene);

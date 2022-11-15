@@ -1,6 +1,7 @@
 package swine_search.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +12,6 @@ import swine_search.domain.Cds;
 import swine_search.service.CdsService;
 import swine_search.util.ResponseDataUtils;
 import swine_search.util.ResponseResult;
-
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ public class CdsController {
     @Autowired
     CdsService cdsService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseResult getCdsById(@PathVariable Integer id) {
         Cds cds = cdsService.getById(id);
         return ResponseDataUtils.getResponseResult(Cds.class, cds);
