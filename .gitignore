@@ -1,11 +1,6 @@
 # Compiled class file
 *.class
 
-# Eclipse
-.project
-.classpath
-.settings/
-
 # Intellij
 *.ipr
 *.iml
@@ -14,10 +9,6 @@
 
 # Maven
 target/
-
-# Gradle
-build
-.gradle
 
 # Log file
 *.log
