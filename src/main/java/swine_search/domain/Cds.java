@@ -19,7 +19,6 @@ public class Cds implements Serializable {
 
     private String cdsLen;
 
-    @TableField("cds_loction")
     private String cdsLocation;
 
     private String transId;

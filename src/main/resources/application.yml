@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://gz-cynosdbmysql-grp-lqdbgset.sql.tencentcdb.com:23453
+    url: jdbc:mysql://gz-cynosdbmysql-grp-lqdbgset.sql.tencentcdb.com:23453/cotton
     username: root
     password: Du061224
 server:
@@ -23,4 +23,4 @@ springdoc:
     # 开启api-docs
     enabled: true
   # 配置需要生成接口文档的接口路径
-  # paths-to-match: /data/**,/admin/**
+  # paths-to-match: /cds/**
