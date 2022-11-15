@@ -7,8 +7,8 @@ import swinedb.util.ResponseResult;
 import swinedb.util.ResponseResultCode;
 
 /**
- * @author 刘铭康
- * @version 2022/11/14
+ * @Author 刘铭康
+ * @Date  2022/11/14
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

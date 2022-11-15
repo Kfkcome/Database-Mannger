@@ -3,10 +3,9 @@ package swinedb.util;
 import lombok.Getter;
 
 /**
- * @Author yue
- * @Date 2022/10/28 16:28
+ * @Author 刘铭康
+ * @Date  2022/11/14
  */
-
 @Getter
 @SuppressWarnings("all")
 public enum ResponseResultCode {

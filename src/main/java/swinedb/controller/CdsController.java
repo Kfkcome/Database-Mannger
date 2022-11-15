@@ -16,8 +16,8 @@ import swinedb.util.ResponseResult;
 import java.util.List;
 
 /**
- * @author 刘铭康
- * @version 2022/11/14
+ * @Author 刘铭康
+ * @Date  2022/11/14
  */
 @RestController
 @RequestMapping("/cds")
