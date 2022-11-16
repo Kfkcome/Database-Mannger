@@ -1,7 +1,6 @@
 package swine_search.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +11,7 @@ import swine_search.domain.Cds;
 import swine_search.service.CdsService;
 import swine_search.util.ResponseDataUtils;
 import swine_search.util.ResponseResult;
+
 import java.util.List;
 
 /**
@@ -44,4 +44,13 @@ public class CdsController {
         List<Cds> records = cdsService.page(cdsPage).getRecords();
         return ResponseDataUtils.getResponseResult(Cds.class, records);
     }
+
+    @GetMapping("page-count")
+    public ResponseResult getPageCount() {
+        Long totalRows = cdsService.count();
+        Long pageCount = totalRows % MyBatisConstants.PAGE_SIZE == 0 ? totalRows / MyBatisConstants.PAGE_SIZE : totalRows / MyBatisConstants.PAGE_SIZE + 1;
+        return ResponseDataUtils.getResponseResult(Long.class, pageCount);
+    }
+
+
 }

@@ -41,4 +41,11 @@ public class ProteinController {
         List<Protein> records = proteinService.page(proteinPage).getRecords();
         return ResponseDataUtils.getResponseResult(Protein.class, records);
     }
+
+    @GetMapping("page-count")
+    public ResponseResult getPageCount() {
+        Long totalRows = proteinService.count();
+        Long pageCount = totalRows % MyBatisConstants.PAGE_SIZE == 0 ? totalRows / MyBatisConstants.PAGE_SIZE : totalRows / MyBatisConstants.PAGE_SIZE + 1;
+        return ResponseDataUtils.getResponseResult(Long.class, pageCount);
+    }
 }

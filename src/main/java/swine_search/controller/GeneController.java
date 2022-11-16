@@ -42,4 +42,11 @@ public class GeneController {
         List<Gene> records = genePage.getRecords();
         return ResponseDataUtils.getResponseResult(Gene.class, records);
     }
+
+    @GetMapping("page-count")
+    public ResponseResult getPageCount() {
+        Long totalRows = geneService.count();
+        Long pageCount = totalRows % MyBatisConstants.PAGE_SIZE == 0 ? totalRows / MyBatisConstants.PAGE_SIZE : totalRows / MyBatisConstants.PAGE_SIZE + 1;
+        return ResponseDataUtils.getResponseResult(Long.class, pageCount);
+    }
 }
