@@ -43,10 +43,11 @@ public class GeneController {
         return ResponseDataUtils.getResponseResult(Gene.class, records);
     }
 
-    @GetMapping("page-count")
+    @GetMapping("/page-count")
     public ResponseResult getPageCount() {
         Long totalRows = geneService.count();
         Long pageCount = totalRows % MyBatisConstants.PAGE_SIZE == 0 ? totalRows / MyBatisConstants.PAGE_SIZE : totalRows / MyBatisConstants.PAGE_SIZE + 1;
-        return ResponseDataUtils.getResponseResult(Long.class, pageCount);
+        // TODO: 2022/11/16 基于路径？？？ 动态获取keyName
+        return ResponseDataUtils.getResponseResult("pageCount", pageCount);
     }
 }
