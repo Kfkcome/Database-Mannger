@@ -1,10 +1,11 @@
 package swine_search.domain;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @TableName gene
@@ -29,6 +30,7 @@ public class Gene implements Serializable {
 
     private String geneStrand;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override

@@ -1,14 +1,11 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://gz-cynosdbmysql-grp-lqdbgset.sql.tencentcdb.com:23453/cotton
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://gz-cynosdbmysql-grp-lqdbgset.sql.tencentcdb.com:23453/cotton
     username: root
     password: Du061224
 server:
   port: 8080
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 springdoc:
   packages-to-scan: swine_search.controller
   swagger-ui:

@@ -2,8 +2,10 @@ package swine_search.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @TableName protein
@@ -24,6 +26,7 @@ public class Protein implements Serializable {
 
     private String cdsId;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override

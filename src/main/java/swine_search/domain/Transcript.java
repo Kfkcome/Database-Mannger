@@ -1,8 +1,10 @@
 package swine_search.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @TableName transcript
@@ -18,6 +20,7 @@ public class Transcript implements Serializable {
 
     private Integer transEnd;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override

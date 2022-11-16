@@ -1,8 +1,11 @@
 package swine_search.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @TableName genome
@@ -10,10 +13,12 @@ import lombok.Data;
 @TableName(value ="genome")
 @Data
 public class Genome implements Serializable {
+    @TableId
     private Integer genomeId;
 
     private String genomeName;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override
