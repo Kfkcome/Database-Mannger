@@ -1,5 +1,6 @@
 package swine_search.util;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -7,7 +8,9 @@ import lombok.Getter;
  * @Date  2022/11/14
  */
 @Getter
+@AllArgsConstructor
 @SuppressWarnings("all")
+
 public enum ResponseResultCode {
     SUCCESS("A0001", "请求成功"),
 
@@ -16,9 +19,5 @@ public enum ResponseResultCode {
     private final String code;
     private final String message;
 
-    ResponseResultCode(String code, String message) {
-        this.code = code;
-        this.message = message;
-    }
 }
 

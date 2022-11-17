@@ -4,6 +4,12 @@ spring:
     url: jdbc:p6spy:mysql://gz-cynosdbmysql-grp-lqdbgset.sql.tencentcdb.com:23453/cotton
     username: root
     password: Du061224
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      # 默认排除静态资源
+
 server:
   port: 8080
 springdoc:
@@ -19,5 +25,5 @@ springdoc:
     path: /v3/api-docs
     # 开启api-docs
     enabled: true
-  # 配置需要生成接口文档的接口路径
-  # paths-to-match: /cds/**
+    # 配置需要生成接口文档的接口路径
+    # paths-to-match: /cds/**
