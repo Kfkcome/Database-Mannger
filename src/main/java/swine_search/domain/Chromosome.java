@@ -1,6 +1,5 @@
 package swine_search.domain;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -19,8 +18,8 @@ public class Chromosome implements Serializable {
 
     private String chrNum;
 
-    @TableField("chr_sourse")
     private String chrSource;
+
 
     @Serial
     private static final long serialVersionUID = 1L;
