@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -14,9 +13,9 @@ import java.io.Serializable;
 @Data
 public class Cds implements Serializable {
     @TableId
-    private Integer id;
+    private Integer cdsId;
 
-    private String cdsId;
+    private String cdsName;
 
     private String cdsLen;
 
@@ -28,7 +27,6 @@ public class Cds implements Serializable {
 
     private Integer cdsEnd;
 
-    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -43,8 +41,8 @@ public class Cds implements Serializable {
             return false;
         }
         Cds other = (Cds) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCdsId() == null ? other.getCdsId() == null : this.getCdsId().equals(other.getCdsId()))
+        return (this.getCdsId() == null ? other.getCdsId() == null : this.getCdsId().equals(other.getCdsId()))
+            && (this.getCdsName() == null ? other.getCdsName() == null : this.getCdsName().equals(other.getCdsName()))
             && (this.getCdsLen() == null ? other.getCdsLen() == null : this.getCdsLen().equals(other.getCdsLen()))
             && (this.getCdsLocation() == null ? other.getCdsLocation() == null : this.getCdsLocation().equals(other.getCdsLocation()))
             && (this.getTransId() == null ? other.getTransId() == null : this.getTransId().equals(other.getTransId()))
@@ -56,8 +54,8 @@ public class Cds implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getCdsId() == null) ? 0 : getCdsId().hashCode());
+        result = prime * result + ((getCdsName() == null) ? 0 : getCdsName().hashCode());
         result = prime * result + ((getCdsLen() == null) ? 0 : getCdsLen().hashCode());
         result = prime * result + ((getCdsLocation() == null) ? 0 : getCdsLocation().hashCode());
         result = prime * result + ((getTransId() == null) ? 0 : getTransId().hashCode());
@@ -72,10 +70,10 @@ public class Cds implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", cdsId=").append(cdsId);
+        sb.append(", cdsName=").append(cdsName);
         sb.append(", cdsLen=").append(cdsLen);
-        sb.append(", cdsLoction=").append(cdsLocation);
+        sb.append(", cdsLocation=").append(cdsLocation);
         sb.append(", transId=").append(transId);
         sb.append(", cdsStart=").append(cdsStart);
         sb.append(", cdsEnd=").append(cdsEnd);

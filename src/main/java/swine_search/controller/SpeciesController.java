@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import swine_search.constant.MyBatisConstants;
-import swine_search.domain.Cds;
-import swine_search.domain.Gene;
-import swine_search.service.GeneService;
+import swine_search.domain.Species;
+import swine_search.service.SpeciesService;
 import swine_search.util.ResponseDataUtils;
 import swine_search.util.ResponseResult;
 
@@ -17,38 +16,37 @@ import java.util.List;
 
 /**
  * @Author 刘铭康
- * @Date  2022/11/14
+ * @Date 2022/11/14
  */
 @RestController
-@RequestMapping("/genome")
-public class GenomeController {
+@RequestMapping("/species")
+public class SpeciesController {
     @Autowired
-    GeneService geneService;
-    
+    SpeciesService speciesService;
 
     @GetMapping("/id/{id}")
-    public ResponseResult getCdsById(@PathVariable Integer id) {
-        Gene gene = geneService.getById(id);
-        return ResponseDataUtils.getResponseResult(Cds.class, gene);
+    public ResponseResult getSpeciesById(@PathVariable Integer id) {
+        Species species = speciesService.getById(id);
+        return ResponseDataUtils.getResponseResult(Species.class, species);
     }
 
     @GetMapping("/all")
-    public ResponseResult getAllCds() {
-        List<Gene> list = geneService.list();
-        return ResponseDataUtils.getResponseResult(Cds.class, list);
+    public ResponseResult getAllSpecies() {
+        List<Species> list = speciesService.list();
+        return ResponseDataUtils.getResponseResult(Species.class, list);
 
     }
 
     @GetMapping("/page/{current}")
-    public ResponseResult getCdsBasePage(@PathVariable Integer current) {
-        Page<Gene> cdsPage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
-        List<Gene> records = geneService.page(cdsPage).getRecords();
-        return ResponseDataUtils.getResponseResult(Cds.class, records);
+    public ResponseResult getSpeciesBasePage(@PathVariable Integer current) {
+        Page<Species> speciesPage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
+        List<Species> records = speciesService.page(speciesPage).getRecords();
+        return ResponseDataUtils.getResponseResult(Species.class, records);
     }
 
     @GetMapping("/page-count")
     public ResponseResult getPageCount() {
-        Long totalRows = geneService.count();
+        Long totalRows = speciesService.count();
         Long pageCount = totalRows % MyBatisConstants.PAGE_SIZE == 0 ? totalRows / MyBatisConstants.PAGE_SIZE : totalRows / MyBatisConstants.PAGE_SIZE + 1;
         // TODO: 2022/11/16 基于路径？？？ 动态获取keyName
         return ResponseDataUtils.getResponseResult("pageCount", pageCount);

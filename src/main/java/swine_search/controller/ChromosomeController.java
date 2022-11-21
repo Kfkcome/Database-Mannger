@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import swine_search.constant.MyBatisConstants;
 import swine_search.domain.Cds;
-import swine_search.domain.Gene;
-import swine_search.service.GeneService;
+import swine_search.domain.Chromosome;
+import swine_search.service.ChromosomeService;
 import swine_search.util.ResponseDataUtils;
 import swine_search.util.ResponseResult;
 
@@ -17,40 +17,41 @@ import java.util.List;
 
 /**
  * @Author 刘铭康
- * @Date  2022/11/14
+ * @Date 2022/11/14
  */
 @RestController
-@RequestMapping("/genome")
-public class GenomeController {
+@RequestMapping("/chromosome")
+public class ChromosomeController {
     @Autowired
-    GeneService geneService;
-    
+    ChromosomeService chromosomeService;
 
     @GetMapping("/id/{id}")
     public ResponseResult getCdsById(@PathVariable Integer id) {
-        Gene gene = geneService.getById(id);
-        return ResponseDataUtils.getResponseResult(Cds.class, gene);
+        Chromosome chromosome = chromosomeService.getById(id);
+        return ResponseDataUtils.getResponseResult(Cds.class, chromosome);
     }
 
     @GetMapping("/all")
     public ResponseResult getAllCds() {
-        List<Gene> list = geneService.list();
+        List<Chromosome> list = chromosomeService.list();
         return ResponseDataUtils.getResponseResult(Cds.class, list);
 
     }
 
     @GetMapping("/page/{current}")
     public ResponseResult getCdsBasePage(@PathVariable Integer current) {
-        Page<Gene> cdsPage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
-        List<Gene> records = geneService.page(cdsPage).getRecords();
+        Page<Chromosome> cdsPage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
+        List<Chromosome> records = chromosomeService.page(cdsPage).getRecords();
         return ResponseDataUtils.getResponseResult(Cds.class, records);
     }
 
     @GetMapping("/page-count")
     public ResponseResult getPageCount() {
-        Long totalRows = geneService.count();
+        Long totalRows = chromosomeService.count();
         Long pageCount = totalRows % MyBatisConstants.PAGE_SIZE == 0 ? totalRows / MyBatisConstants.PAGE_SIZE : totalRows / MyBatisConstants.PAGE_SIZE + 1;
         // TODO: 2022/11/16 基于路径？？？ 动态获取keyName
         return ResponseDataUtils.getResponseResult("pageCount", pageCount);
     }
 }
+
+

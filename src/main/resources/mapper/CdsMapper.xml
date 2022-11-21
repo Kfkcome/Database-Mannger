@@ -2,21 +2,21 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="swinedb.mapper.CdsMapper">
+<mapper namespace="swine_search.mapper.CdsMapper">
 
     <resultMap id="BaseResultMap" type="swine_search.domain.Cds">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="cdsId" column="cds_id" jdbcType="VARCHAR"/>
+            <id property="cdsId" column="cds_id" jdbcType="INTEGER"/>
+            <result property="cdsName" column="cds_name" jdbcType="VARCHAR"/>
             <result property="cdsLen" column="cds_len" jdbcType="VARCHAR"/>
-            <result property="cdsLoction" column="cds_loction" jdbcType="VARCHAR"/>
+            <result property="cdsLocation" column="cds_location" jdbcType="VARCHAR"/>
             <result property="transId" column="trans_id" jdbcType="VARCHAR"/>
             <result property="cdsStart" column="cds_start" jdbcType="INTEGER"/>
             <result property="cdsEnd" column="cds_end" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,cds_id,cds_len,
-        cds_loction,trans_id,cds_start,
+        cds_id,cds_name,cds_len,
+        cds_location,trans_id,cds_start,
         cds_end
     </sql>
 </mapper>
