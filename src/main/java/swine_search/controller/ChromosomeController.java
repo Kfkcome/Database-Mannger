@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import swine_search.constant.MyBatisConstants;
-import swine_search.domain.Cds;
 import swine_search.domain.Chromosome;
 import swine_search.service.ChromosomeService;
 import swine_search.util.ResponseDataUtils;
@@ -28,21 +27,21 @@ public class ChromosomeController {
     @GetMapping("/id/{id}")
     public ResponseResult getCdsById(@PathVariable Integer id) {
         Chromosome chromosome = chromosomeService.getById(id);
-        return ResponseDataUtils.getResponseResult(Cds.class, chromosome);
+        return ResponseDataUtils.getResponseResult(Chromosome.class, chromosome);
     }
 
     @GetMapping("/all")
     public ResponseResult getAllCds() {
         List<Chromosome> list = chromosomeService.list();
-        return ResponseDataUtils.getResponseResult(Cds.class, list);
+        return ResponseDataUtils.getResponseResult(Chromosome.class, list);
 
     }
 
     @GetMapping("/page/{current}")
     public ResponseResult getCdsBasePage(@PathVariable Integer current) {
-        Page<Chromosome> cdsPage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
-        List<Chromosome> records = chromosomeService.page(cdsPage).getRecords();
-        return ResponseDataUtils.getResponseResult(Cds.class, records);
+        Page<Chromosome> chromosomePage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
+        List<Chromosome> records = chromosomeService.page(chromosomePage).getRecords();
+        return ResponseDataUtils.getResponseResult(Chromosome.class, records);
     }
 
     @GetMapping("/page-count")

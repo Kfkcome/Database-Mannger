@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import swine_search.constant.MyBatisConstants;
-import swine_search.domain.Gene;
 import swine_search.domain.GeneExp;
 import swine_search.service.GeneExpService;
 import swine_search.util.ResponseDataUtils;
@@ -28,20 +27,20 @@ public class GeneExpController {
     @GetMapping("/id/{id}")
     public ResponseResult getGeneById(@PathVariable Integer id) {
         GeneExp geneExp = geneExpService.getById(id);
-        return ResponseDataUtils.getResponseResult(geneExp.getClass(), geneExp);
+        return ResponseDataUtils.getResponseResult(GeneExp.class, geneExp);
     }
 
     @GetMapping("/all")
     public ResponseResult getAllGene() {
         List<GeneExp> list = geneExpService.list();
-        return ResponseDataUtils.getResponseResult(Gene.class, list);
+        return ResponseDataUtils.getResponseResult(GeneExp.class, list);
     }
 
     @GetMapping("/page/{current}")
     public ResponseResult getCdsBasePage(@PathVariable Integer current) {
-        Page<Gene> genePage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
-        List<Gene> records = genePage.getRecords();
-        return ResponseDataUtils.getResponseResult(Gene.class, records);
+        Page<GeneExp> geneExpPage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
+        List<GeneExp> records = geneExpService.page(geneExpPage).getRecords();
+        return ResponseDataUtils.getResponseResult(GeneExp.class, records);
     }
 
     @GetMapping("/page-count")
