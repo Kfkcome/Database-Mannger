@@ -12,4 +12,5 @@ public class SwineDbApplication {
         SpringApplication.run(SwineDbApplication.class, args);
     }
 
+
 }
