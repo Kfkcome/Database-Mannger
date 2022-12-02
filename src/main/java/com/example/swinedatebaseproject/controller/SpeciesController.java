@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.swinedatebaseproject.constant.MyBatisConstants;
 import com.example.swinedatebaseproject.domain.Species;
 import com.example.swinedatebaseproject.service.SpeciesService;
-import com.example.swinedatebaseproject.util.ResponseDataUtils;
+import com.example.swinedatebaseproject.util.ResponseResultUtils;
 import com.example.swinedatebaseproject.util.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,13 +27,13 @@ public class SpeciesController {
     @GetMapping("/id/{id}")
     public ResponseResult getSpeciesById(@PathVariable Integer id) {
         Species species = speciesService.getById(id);
-        return ResponseDataUtils.getResponseResult(Species.class, species);
+        return ResponseResultUtils.getResponseResult(Species.class, species);
     }
 
     @GetMapping("/all")
     public ResponseResult getAllSpecies() {
         List<Species> list = speciesService.list();
-        return ResponseDataUtils.getResponseResult(Species.class, list);
+        return ResponseResultUtils.getResponseResult(Species.class, list);
 
     }
 
@@ -41,7 +41,7 @@ public class SpeciesController {
     public ResponseResult getSpeciesBasePage(@PathVariable Integer current) {
         Page<Species> speciesPage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
         List<Species> records = speciesService.page(speciesPage).getRecords();
-        return ResponseDataUtils.getResponseResult(Species.class, records);
+        return ResponseResultUtils.getResponseResult(Species.class, records);
     }
 
     @GetMapping("/page-count")
@@ -49,6 +49,6 @@ public class SpeciesController {
         Long totalRows = speciesService.count();
         Long pageCount = totalRows % MyBatisConstants.PAGE_SIZE == 0 ? totalRows / MyBatisConstants.PAGE_SIZE : totalRows / MyBatisConstants.PAGE_SIZE + 1;
         // TODO: 2022/11/16 基于路径？？？ 动态获取keyName
-        return ResponseDataUtils.getResponseResult("pageCount", pageCount);
+        return ResponseResultUtils.getResponseResult("pageCount", pageCount);
     }
 }

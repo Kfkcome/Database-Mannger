@@ -11,7 +11,7 @@ import java.util.Map;
  * @Date  2022/11/14
  * @Description 向ResponseResult中增加单条数据（单对象/单集合）
  */
-public class ResponseDataUtils {
+public class ResponseResultUtils {
 
     private static String getCommonKeyName(String simpleName) {
         String oldFirstChar = String.valueOf(simpleName.charAt(0));
@@ -39,11 +39,17 @@ public class ResponseDataUtils {
         };
     }
 
+    /**
+     *  keyName 需基于传入数据动态指定
+     */
     public static <T> ResponseResult getResponseResult(Class<T> dataClass, Object data) {
         Map<String, Object> dataMap = getDataMap(dataClass, data);
         return ResponseResult.success(dataMap);
     }
 
+    /**
+     *  自指定keyName
+     */
     public static ResponseResult getResponseResult(String keyName, Object data) {
         Map<String, Object> dataMap = new HashMap<>() {
             {
@@ -53,6 +59,17 @@ public class ResponseDataUtils {
         return ResponseResult.success(dataMap);
     }
 
+    /**
+     *  自指定keyName
+     */
+    public static ResponseResult getResponseResult(String message,String code,String keyName, Object data) {
+        Map<String, Object> dataMap = new HashMap<>() {
+            {
+                put(keyName, data);
+            }
+        };
+        return ResponseResult.success(message,code,dataMap);
+    }
 
 
 

@@ -21,12 +21,10 @@ public enum ResponseResultCode {
     REGISTER_SUCCESS("B0003", "注册成功"),
     REGISTER_FAIL("B0004", "注册失败"),
     NOT_REGISTER("B0005", "未注册"),
-    AUTHEMTICATION_FAIL("A0006", "认证失败，请重新登录");
+    NOT_LOGIN("B0006", "未登录"),
+    AUTHEMTICATION_FAIL("A0007", "认证失败，请重新登录");
 
     private final String code;
     private final String message;
-
-
-
 }
 

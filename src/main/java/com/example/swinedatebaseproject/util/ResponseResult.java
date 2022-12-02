@@ -28,6 +28,11 @@ public class ResponseResult {
         return new ResponseResult(code,message,null);
     }
 
+    public static ResponseResult success(String code, String message,Object data) {
+        return new ResponseResult(code,message,data);
+    }
+
+
 
     public static ResponseResult error(String code,String message) {
         return new ResponseResult(code,message,null);

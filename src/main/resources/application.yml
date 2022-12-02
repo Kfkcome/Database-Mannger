@@ -4,21 +4,16 @@ spring:
     url: jdbc:mysql://gz-cynosdbmysql-grp-lqdbgset.sql.tencentcdb.com:23453/cotton
     username: root
     password: Du061224
+  application:
+    name: swine-search-project
 server:
   port: 8080
 springdoc:
   packages-to-scan: com.example.swinedatebaseproject.controller
   swagger-ui:
-    # \u4FEE\u6539Swagger UI\u8DEF\u5F84
-    # /api-docs->/swagger-ui/index.html
     path: /api-docs
-    # \u5F00\u542FSwagger UI\u754C\u9762
     enabled: true
   api-docs:
-    # \u4FEE\u6539api-docs\u8DEF\u5F84
     path: /v3/api-docs
-    # \u5F00\u542Fapi-docs
     enabled: true
-    # \u914D\u7F6E\u9700\u8981\u751F\u6210\u63A5\u53E3\u6587\u6863\u7684\u63A5\u53E3\u8DEF\u5F84
-    # paths-to-match: /cds/**
 

@@ -23,7 +23,6 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     public void fillData() {
         List<String> list = list().stream().map(Administrator::getName).toList();
         UserCache.ADMINISTRATORS.addAll(list);
-
     }
 }
 

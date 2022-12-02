@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/register")
 public class RegisterController {
+
     @Autowired
     RegisterService registerService;
+
     @PostMapping("/user")
     public ResponseResult userLogin(CommonUser commonUser) {
         if (registerService.userRegister(commonUser)) {
