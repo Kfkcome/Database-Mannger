@@ -66,19 +66,18 @@ public class Cds implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", cdsId=").append(cdsId);
-        sb.append(", cdsName=").append(cdsName);
-        sb.append(", cdsLen=").append(cdsLen);
-        sb.append(", cdsLocation=").append(cdsLocation);
-        sb.append(", transId=").append(transId);
-        sb.append(", cdsStart=").append(cdsStart);
-        sb.append(", cdsEnd=").append(cdsEnd);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        String sb = getClass().getSimpleName() +
+                " [" +
+                "Hash = " + hashCode() +
+                ", cdsId=" + cdsId +
+                ", cdsName=" + cdsName +
+                ", cdsLen=" + cdsLen +
+                ", cdsLocation=" + cdsLocation +
+                ", transId=" + transId +
+                ", cdsStart=" + cdsStart +
+                ", cdsEnd=" + cdsEnd +
+                ", serialVersionUID=" + serialVersionUID +
+                "]";
+        return sb;
     }
 }

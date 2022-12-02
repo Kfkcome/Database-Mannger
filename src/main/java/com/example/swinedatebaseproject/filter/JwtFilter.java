@@ -38,7 +38,6 @@ public class JwtFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
         if (requestURI.contains(LOGIN_PREFIX) || requestURI.contains(REGISTER_PREFIX) || requestURI.contains(DOC_PREFIX) ) {
             filterChain.doFilter(request, response);
-            System.out.println(requestURI);
             return;
         }
 
@@ -47,7 +46,6 @@ public class JwtFilter extends OncePerRequestFilter {
             ResponseResult responseResult = ResponseResult.error(ResponseResultCode.NOT_LOGIN.getCode(), ResponseResultCode.NOT_LOGIN.getMessage());
             String value = objectMapper.writeValueAsString(responseResult);
             WebUtils.renderString(response, value);
-            System.out.println(requestURI);
             return;
         }
 

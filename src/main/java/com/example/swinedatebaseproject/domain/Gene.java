@@ -72,20 +72,19 @@ public class Gene implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", geneId=").append(geneId);
-        sb.append(", chrId=").append(chrId);
-        sb.append(", geneName=").append(geneName);
-        sb.append(", geneType=").append(geneType);
-        sb.append(", geneStart=").append(geneStart);
-        sb.append(", geneEnd=").append(geneEnd);
-        sb.append(", genomeId=").append(genomeId);
-        sb.append(", geneStrand=").append(geneStrand);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        String sb = getClass().getSimpleName() +
+                " [" +
+                "Hash = " + hashCode() +
+                ", geneId=" + geneId +
+                ", chrId=" + chrId +
+                ", geneName=" + geneName +
+                ", geneType=" + geneType +
+                ", geneStart=" + geneStart +
+                ", geneEnd=" + geneEnd +
+                ", genomeId=" + genomeId +
+                ", geneStrand=" + geneStrand +
+                ", serialVersionUID=" + serialVersionUID +
+                "]";
+        return sb;
     }
 }

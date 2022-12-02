@@ -50,6 +50,6 @@ public class GenomeController {
         Long totalRows =  genomeService.count();
         Long pageCount = totalRows % MyBatisConstants.PAGE_SIZE == 0 ? totalRows / MyBatisConstants.PAGE_SIZE : totalRows / MyBatisConstants.PAGE_SIZE + 1;
         // TODO: 2022/11/16 基于路径？？？ 动态获取keyName
-        return ResponseResultUtils.getResponseResult("pageCount", pageCount);
+        return ResponseResultUtils.getSuccessResponseResult("pageCount", pageCount);
     }
 }

@@ -50,7 +50,7 @@ public class ResponseResultUtils {
     /**
      *  自指定keyName
      */
-    public static ResponseResult getResponseResult(String keyName, Object data) {
+    public static ResponseResult getSuccessResponseResult(String keyName, Object data) {
         Map<String, Object> dataMap = new HashMap<>() {
             {
                 put(keyName, data);

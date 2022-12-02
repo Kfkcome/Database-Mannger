@@ -54,16 +54,15 @@ public class Chromosome implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", chrId=").append(chrId);
-        sb.append(", chrName=").append(chrName);
-        sb.append(", chrNum=").append(chrNum);
-        sb.append(", chrSource=").append(chrSource);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        String sb = getClass().getSimpleName() +
+                " [" +
+                "Hash = " + hashCode() +
+                ", chrId=" + chrId +
+                ", chrName=" + chrName +
+                ", chrNum=" + chrNum +
+                ", chrSource=" + chrSource +
+                ", serialVersionUID=" + serialVersionUID +
+                "]";
+        return sb;
     }
 }

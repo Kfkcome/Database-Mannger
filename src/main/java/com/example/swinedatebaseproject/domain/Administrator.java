@@ -44,14 +44,13 @@ public class Administrator implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", name=").append(name);
-        sb.append(", password=").append(password);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        String sb = getClass().getSimpleName() +
+                " [" +
+                "Hash = " + hashCode() +
+                ", name=" + name +
+                ", password=" + password +
+                ", serialVersionUID=" + serialVersionUID +
+                "]";
+        return sb;
     }
 }

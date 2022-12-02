@@ -62,18 +62,17 @@ public class Protein implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", proteinId=").append(proteinId);
-        sb.append(", proteinFunction=").append(proteinFunction);
-        sb.append(", proteinName=").append(proteinName);
-        sb.append(", proteinLen=").append(proteinLen);
-        sb.append(", proteinWeigth=").append(proteinWeigth);
-        sb.append(", cdsId=").append(cdsId);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        String sb = getClass().getSimpleName() +
+                " [" +
+                "Hash = " + hashCode() +
+                ", proteinId=" + proteinId +
+                ", proteinFunction=" + proteinFunction +
+                ", proteinName=" + proteinName +
+                ", proteinLen=" + proteinLen +
+                ", proteinWeigth=" + proteinWeigth +
+                ", cdsId=" + cdsId +
+                ", serialVersionUID=" + serialVersionUID +
+                "]";
+        return sb;
     }
 }
