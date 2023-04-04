@@ -1,5 +1,6 @@
 package com.example.swinedatebaseproject.config;
 
+import com.example.swinedatebaseproject.filter.DynamicDatasourceFilter;
 import com.example.swinedatebaseproject.filter.JwtFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +16,19 @@ import javax.servlet.Filter;
 @Configuration
 public class FilterConfig {
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
+    public FilterRegistrationBean jwtFilter() {
         FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new JwtFilter());
+        registrationBean.setOrder(Integer.MAX_VALUE);
         return registrationBean;
     }
+
+    @Bean
+    public FilterRegistrationBean dynamicDatasourceFilter() {
+        FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new DynamicDatasourceFilter());
+        registrationBean.setOrder(-1);
+        return registrationBean;
+    }
+
 }

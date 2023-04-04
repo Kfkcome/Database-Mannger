@@ -1,30 +1,56 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
+ * 
  * @TableName protein
  */
 @TableName(value ="protein")
 @Data
 public class Protein implements Serializable {
-    @TableId
+    /**
+     * 
+     */
+    @TableId(value = "protein_id")
     private String proteinId;
 
+    /**
+     * 
+     */
+    @TableField(value = "protein_function")
     private String proteinFunction;
 
+    /**
+     * 
+     */
+    @TableField(value = "protein_name")
     private String proteinName;
 
+    /**
+     * 
+     */
+    @TableField(value = "protein_len")
     private String proteinLen;
 
+    /**
+     * 
+     */
+    @TableField(value = "protein_weigth")
     private String proteinWeigth;
 
+    /**
+     * 
+     */
+    @TableField(value = "cds_id")
     private String cdsId;
 
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -62,17 +88,18 @@ public class Protein implements Serializable {
 
     @Override
     public String toString() {
-        String sb = getClass().getSimpleName() +
-                " [" +
-                "Hash = " + hashCode() +
-                ", proteinId=" + proteinId +
-                ", proteinFunction=" + proteinFunction +
-                ", proteinName=" + proteinName +
-                ", proteinLen=" + proteinLen +
-                ", proteinWeigth=" + proteinWeigth +
-                ", cdsId=" + cdsId +
-                ", serialVersionUID=" + serialVersionUID +
-                "]";
-        return sb;
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", proteinId=").append(proteinId);
+        sb.append(", proteinFunction=").append(proteinFunction);
+        sb.append(", proteinName=").append(proteinName);
+        sb.append(", proteinLen=").append(proteinLen);
+        sb.append(", proteinWeigth=").append(proteinWeigth);
+        sb.append(", cdsId=").append(cdsId);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }

@@ -1,66 +1,158 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 /**
+ * 
  * @TableName gene_exp
  */
 @TableName(value ="gene_exp")
 @Data
 public class GeneExp implements Serializable {
-    @TableId
+    /**
+     * 
+     */
+    @TableId(value = "gene")
     private String gene;
 
+    /**
+     * 
+     */
+    @TableField(value = "anther")
     private String anther;
 
+    /**
+     * 
+     */
+    @TableField(value = "bract")
     private String bract;
 
+    /**
+     * 
+     */
+    @TableField(value = "cotyledon")
     private String cotyledon;
 
+    /**
+     * 
+     */
+    @TableField(value = "fiber10_d_p_a")
     private String fiber10DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "fiber20_d_p_a")
     private String fiber20DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "fiber5_d_p_a")
     private String fiber5DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "flower")
     private String flower;
 
+    /**
+     * 
+     */
+    @TableField(value = "leaf")
     private String leaf;
 
+    /**
+     * 
+     */
+    @TableField(value = "ovule0_d_p_a")
     private String ovule0DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "ovule10_d_p_a")
     private String ovule10DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "ovule20_d_p_a")
     private String ovule20DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "ovule5_d_p_a")
     private String ovule5DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "ovule_f10_d_p_a")
     private String ovuleF10DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "ovule_f20_d_p_a")
     private String ovuleF20DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "ovule_f5_d_p_a")
     private String ovuleF5DPA;
 
+    /**
+     * 
+     */
+    @TableField(value = "petal")
     private String petal;
 
+    /**
+     * 
+     */
+    @TableField(value = "phloem")
     private String phloem;
 
+    /**
+     * 
+     */
+    @TableField(value = "seed")
     private String seed;
 
+    /**
+     * 
+     */
+    @TableField(value = "seedlingroot")
     private String seedlingroot;
 
+    /**
+     * 
+     */
+    @TableField(value = "seedlingstem")
     private String seedlingstem;
 
+    /**
+     * 
+     */
+    @TableField(value = "sepal")
     private String sepal;
 
+    /**
+     * 
+     */
+    @TableField(value = "stigma")
     private String stigma;
 
-    @Serial
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -132,34 +224,35 @@ public class GeneExp implements Serializable {
 
     @Override
     public String toString() {
-        String sb = getClass().getSimpleName() +
-                " [" +
-                "Hash = " + hashCode() +
-                ", gene=" + gene +
-                ", anther=" + anther +
-                ", bract=" + bract +
-                ", cotyledon=" + cotyledon +
-                ", fiber10DPA=" + fiber10DPA +
-                ", fiber20DPA=" + fiber20DPA +
-                ", fiber5DPA=" + fiber5DPA +
-                ", flower=" + flower +
-                ", leaf=" + leaf +
-                ", ovule0DPA=" + ovule0DPA +
-                ", ovule10DPA=" + ovule10DPA +
-                ", ovule20DPA=" + ovule20DPA +
-                ", ovule5DPA=" + ovule5DPA +
-                ", ovuleF10DPA=" + ovuleF10DPA +
-                ", ovuleF20DPA=" + ovuleF20DPA +
-                ", ovuleF5DPA=" + ovuleF5DPA +
-                ", petal=" + petal +
-                ", phloem=" + phloem +
-                ", seed=" + seed +
-                ", seedlingroot=" + seedlingroot +
-                ", seedlingstem=" + seedlingstem +
-                ", sepal=" + sepal +
-                ", stigma=" + stigma +
-                ", serialVersionUID=" + serialVersionUID +
-                "]";
-        return sb;
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", gene=").append(gene);
+        sb.append(", anther=").append(anther);
+        sb.append(", bract=").append(bract);
+        sb.append(", cotyledon=").append(cotyledon);
+        sb.append(", fiber10DPA=").append(fiber10DPA);
+        sb.append(", fiber20DPA=").append(fiber20DPA);
+        sb.append(", fiber5DPA=").append(fiber5DPA);
+        sb.append(", flower=").append(flower);
+        sb.append(", leaf=").append(leaf);
+        sb.append(", ovule0DPA=").append(ovule0DPA);
+        sb.append(", ovule10DPA=").append(ovule10DPA);
+        sb.append(", ovule20DPA=").append(ovule20DPA);
+        sb.append(", ovule5DPA=").append(ovule5DPA);
+        sb.append(", ovuleF10DPA=").append(ovuleF10DPA);
+        sb.append(", ovuleF20DPA=").append(ovuleF20DPA);
+        sb.append(", ovuleF5DPA=").append(ovuleF5DPA);
+        sb.append(", petal=").append(petal);
+        sb.append(", phloem=").append(phloem);
+        sb.append(", seed=").append(seed);
+        sb.append(", seedlingroot=").append(seedlingroot);
+        sb.append(", seedlingstem=").append(seedlingstem);
+        sb.append(", sepal=").append(sepal);
+        sb.append(", stigma=").append(stigma);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }

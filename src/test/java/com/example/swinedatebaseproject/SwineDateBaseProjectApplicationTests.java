@@ -1,13 +1,15 @@
 package com.example.swinedatebaseproject;
 
 
-import org.jetbrains.annotations.TestOnly;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class SwineDateBaseProjectApplicationTests {
 
-    @TestOnly
+
+
+    @Test
     void contextLoads() {
     }
 

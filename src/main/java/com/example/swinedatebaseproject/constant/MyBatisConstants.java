@@ -7,5 +7,5 @@ package com.example.swinedatebaseproject.constant;
 
 public class MyBatisConstants {
 
-    public static final Integer PAGE_SIZE = 35;
+    public static final Integer PAGE_SIZE = 15;
 }

@@ -9,9 +9,9 @@ import java.io.IOException;
  * @Author 刘铭康
  * @Date 2022/11/14
  */
+
 public class WebUtils {
 
-    // 配置HttpResponse信息
     public static void renderString(HttpServletResponse response, String value) {
         try {
             response.setStatus(200);
@@ -44,4 +44,8 @@ public class WebUtils {
             e.printStackTrace();
         }
     }
+
+
+
+
 }

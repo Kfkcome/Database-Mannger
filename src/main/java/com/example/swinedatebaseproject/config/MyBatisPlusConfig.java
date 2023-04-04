@@ -15,6 +15,7 @@ public class MyBatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor paginationInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+
         PaginationInnerInterceptor pageInterceptor = new PaginationInnerInterceptor();
         pageInterceptor.setOverflow(true);
         pageInterceptor.setMaxLimit(500L);

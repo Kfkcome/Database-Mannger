@@ -1,36 +1,62 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 /**
+ * 
  * @TableName gene
  */
 @TableName(value ="gene")
 @Data
 public class Gene implements Serializable {
-    @TableId
+    /**
+     * 基因id
+     */
+    @TableId(value = "gene_id")
     private String geneId;
 
+    /**
+     * 染色体id
+     */
+    @TableField(value = "chr_id")
     private String chrId;
 
+    /**
+     * 基因名
+     */
+    @TableField(value = "gene_name")
     private String geneName;
 
-    private String geneType;
-
+    /**
+     * 
+     */
+    @TableField(value = "gene_start")
     private Integer geneStart;
 
+    /**
+     * 
+     */
+    @TableField(value = "gene_end")
     private Integer geneEnd;
 
+    /**
+     * 基因组id
+     */
+    @TableField(value = "genome_id")
     private Integer genomeId;
 
+    /**
+     * 
+     */
+    @TableField(value = "gene_strand")
     private String geneStrand;
 
-    @Serial
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -48,7 +74,6 @@ public class Gene implements Serializable {
         return (this.getGeneId() == null ? other.getGeneId() == null : this.getGeneId().equals(other.getGeneId()))
             && (this.getChrId() == null ? other.getChrId() == null : this.getChrId().equals(other.getChrId()))
             && (this.getGeneName() == null ? other.getGeneName() == null : this.getGeneName().equals(other.getGeneName()))
-            && (this.getGeneType() == null ? other.getGeneType() == null : this.getGeneType().equals(other.getGeneType()))
             && (this.getGeneStart() == null ? other.getGeneStart() == null : this.getGeneStart().equals(other.getGeneStart()))
             && (this.getGeneEnd() == null ? other.getGeneEnd() == null : this.getGeneEnd().equals(other.getGeneEnd()))
             && (this.getGenomeId() == null ? other.getGenomeId() == null : this.getGenomeId().equals(other.getGenomeId()))
@@ -62,7 +87,6 @@ public class Gene implements Serializable {
         result = prime * result + ((getGeneId() == null) ? 0 : getGeneId().hashCode());
         result = prime * result + ((getChrId() == null) ? 0 : getChrId().hashCode());
         result = prime * result + ((getGeneName() == null) ? 0 : getGeneName().hashCode());
-        result = prime * result + ((getGeneType() == null) ? 0 : getGeneType().hashCode());
         result = prime * result + ((getGeneStart() == null) ? 0 : getGeneStart().hashCode());
         result = prime * result + ((getGeneEnd() == null) ? 0 : getGeneEnd().hashCode());
         result = prime * result + ((getGenomeId() == null) ? 0 : getGenomeId().hashCode());
@@ -72,19 +96,19 @@ public class Gene implements Serializable {
 
     @Override
     public String toString() {
-        String sb = getClass().getSimpleName() +
-                " [" +
-                "Hash = " + hashCode() +
-                ", geneId=" + geneId +
-                ", chrId=" + chrId +
-                ", geneName=" + geneName +
-                ", geneType=" + geneType +
-                ", geneStart=" + geneStart +
-                ", geneEnd=" + geneEnd +
-                ", genomeId=" + genomeId +
-                ", geneStrand=" + geneStrand +
-                ", serialVersionUID=" + serialVersionUID +
-                "]";
-        return sb;
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", geneId=").append(geneId);
+        sb.append(", chrId=").append(chrId);
+        sb.append(", geneName=").append(geneName);
+        sb.append(", geneStart=").append(geneStart);
+        sb.append(", geneEnd=").append(geneEnd);
+        sb.append(", genomeId=").append(genomeId);
+        sb.append(", geneStrand=").append(geneStrand);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }

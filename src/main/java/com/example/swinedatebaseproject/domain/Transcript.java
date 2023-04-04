@@ -1,28 +1,44 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 /**
+ * 
  * @TableName transcript
  */
 @TableName(value ="transcript")
 @Data
 public class Transcript implements Serializable {
-    @TableId
+    /**
+     * 
+     */
+    @TableId(value = "trans_id")
     private String transId;
 
+    /**
+     * 
+     */
+    @TableField(value = "gene_id")
     private String geneId;
 
+    /**
+     * 
+     */
+    @TableField(value = "trans_start")
     private Integer transStart;
 
+    /**
+     * 
+     */
+    @TableField(value = "trans_end")
     private Integer transEnd;
 
-    @Serial
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -56,15 +72,16 @@ public class Transcript implements Serializable {
 
     @Override
     public String toString() {
-        String sb = getClass().getSimpleName() +
-                " [" +
-                "Hash = " + hashCode() +
-                ", transId=" + transId +
-                ", geneId=" + geneId +
-                ", transStart=" + transStart +
-                ", transEnd=" + transEnd +
-                ", serialVersionUID=" + serialVersionUID +
-                "]";
-        return sb;
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", transId=").append(transId);
+        sb.append(", geneId=").append(geneId);
+        sb.append(", transStart=").append(transStart);
+        sb.append(", transEnd=").append(transEnd);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }

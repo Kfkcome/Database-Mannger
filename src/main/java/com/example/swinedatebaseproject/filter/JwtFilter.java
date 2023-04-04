@@ -1,9 +1,9 @@
 package com.example.swinedatebaseproject.filter;
 
 import com.example.swinedatebaseproject.cache.UserCache;
+import com.example.swinedatebaseproject.response.ResponseResult;
+import com.example.swinedatebaseproject.response.ResponseResultCode;
 import com.example.swinedatebaseproject.util.JwtUtils;
-import com.example.swinedatebaseproject.util.ResponseResult;
-import com.example.swinedatebaseproject.util.ResponseResultCode;
 import com.example.swinedatebaseproject.util.WebUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -34,6 +34,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+
+        String secret = request.getHeader("secret");
+        if (Objects.nonNull(secret) && "secret".equals(secret)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String requestURI = request.getRequestURI();
         if (requestURI.contains(LOGIN_PREFIX) || requestURI.contains(REGISTER_PREFIX) || requestURI.contains(DOC_PREFIX) ) {

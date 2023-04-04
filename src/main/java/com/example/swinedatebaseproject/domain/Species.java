@@ -1,26 +1,38 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 /**
+ * 
  * @TableName species
  */
 @TableName(value ="species")
 @Data
 public class Species implements Serializable {
-    @TableId
+    /**
+     * 
+     */
+    @TableId(value = "species_id", type = IdType.AUTO)
     private Integer speciesId;
 
+    /**
+     * 
+     */
+    @TableField(value = "species_name")
     private String speciesName;
 
-    private Integer genomeId;
+    /**
+     * 
+     */
+    @TableField(value = "genome_id")
+    private String genomeId;
 
-    @Serial
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -52,14 +64,15 @@ public class Species implements Serializable {
 
     @Override
     public String toString() {
-        String sb = getClass().getSimpleName() +
-                " [" +
-                "Hash = " + hashCode() +
-                ", speciesId=" + speciesId +
-                ", speciesName=" + speciesName +
-                ", genomeId=" + genomeId +
-                ", serialVersionUID=" + serialVersionUID +
-                "]";
-        return sb;
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", speciesId=").append(speciesId);
+        sb.append(", speciesName=").append(speciesName);
+        sb.append(", genomeId=").append(genomeId);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }

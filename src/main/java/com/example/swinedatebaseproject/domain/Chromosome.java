@@ -1,26 +1,44 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
+ * 
  * @TableName chromosome
  */
 @TableName(value ="chromosome")
 @Data
 public class Chromosome implements Serializable {
-    @TableId
+    /**
+     * 
+     */
+    @TableId(value = "chr_id", type = IdType.AUTO)
     private Integer chrId;
 
+    /**
+     * 
+     */
+    @TableField(value = "chr_name")
     private String chrName;
 
+    /**
+     * 
+     */
+    @TableField(value = "chr_num")
     private String chrNum;
 
+    /**
+     * 
+     */
+    @TableField(value = "chr_source")
     private String chrSource;
 
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -54,15 +72,16 @@ public class Chromosome implements Serializable {
 
     @Override
     public String toString() {
-        String sb = getClass().getSimpleName() +
-                " [" +
-                "Hash = " + hashCode() +
-                ", chrId=" + chrId +
-                ", chrName=" + chrName +
-                ", chrNum=" + chrNum +
-                ", chrSource=" + chrSource +
-                ", serialVersionUID=" + serialVersionUID +
-                "]";
-        return sb;
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", chrId=").append(chrId);
+        sb.append(", chrName=").append(chrName);
+        sb.append(", chrNum=").append(chrNum);
+        sb.append(", chrSource=").append(chrSource);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }
