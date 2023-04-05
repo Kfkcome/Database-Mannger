@@ -1,5 +1,6 @@
 package com.example.swinedatebaseproject.controller.data;
 
+
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelReader;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -468,7 +469,7 @@ public abstract class CommonController<T> {
     @NotNull
     private HashMap<String, String> getFiledValueMap(List<String> values) {
 
-        HashMap<String, String> hashMap = new HashMap<>() {
+        return new HashMap<>() {
             {
                 for (int i = 0; i < fieldNames.size(); i++) {
                     String value = values.get(i);
@@ -480,7 +481,6 @@ public abstract class CommonController<T> {
                 }
             }
         };
-        return hashMap;
     }
 
     @Getter
