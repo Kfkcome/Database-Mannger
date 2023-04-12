@@ -338,14 +338,23 @@ public abstract class CommonController<T> {
             if (service.remove(wrapper)) {
                 return ResponseResult.success(ResponseResultCode.DELETE_SUCCESS.getCode(), ResponseResultCode.DELETE_SUCCESS.getMessage());
             } else {
-                return ResponseResult.success(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
+                return ResponseResult.error(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
             }
         } else {
-            return ResponseResult.success(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
-
+            return ResponseResult.error(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
         }
 
 
+    }
+
+    public abstract ResponseResult deleteRowsByIds(List<Integer> ids);
+
+    public ResponseResult deleteRowsByIdsActual(List<Integer> ids) {
+        if (service.removeByIds(ids)) {
+            return ResponseResult.success();
+        } else {
+            return ResponseResult.error(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
+        }
     }
 
     // <-----------------------------------------private method----------------------------------------------------------------------->
