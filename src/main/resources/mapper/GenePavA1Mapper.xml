@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.GenePavA1Mapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.GenePavA1">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="pos" column="pos" jdbcType="VARCHAR"/>
+            <result property="gene" column="gene" jdbcType="VARCHAR"/>
+            <result property="a1012" column="A1_012" jdbcType="VARCHAR"/>
+            <result property="a1019" column="A1_019" jdbcType="VARCHAR"/>
+            <result property="a1028" column="A1_028" jdbcType="VARCHAR"/>
+            <result property="a1029" column="A1_029" jdbcType="VARCHAR"/>
+            <result property="a1030" column="A1_030" jdbcType="VARCHAR"/>
+            <result property="a1037" column="A1_037" jdbcType="VARCHAR"/>
+            <result property="a1051" column="A1_051" jdbcType="VARCHAR"/>
+            <result property="a1054" column="A1_054" jdbcType="VARCHAR"/>
+            <result property="a1073" column="A1_073" jdbcType="VARCHAR"/>
+            <result property="a1074" column="A1_074" jdbcType="VARCHAR"/>
+            <result property="a1077" column="A1_077" jdbcType="VARCHAR"/>
+            <result property="a1079" column="A1_079" jdbcType="VARCHAR"/>
+            <result property="a1084" column="A1_084" jdbcType="VARCHAR"/>
+            <result property="a1088" column="A1_088" jdbcType="VARCHAR"/>
+            <result property="a1097" column="A1_097" jdbcType="VARCHAR"/>
+            <result property="a1108" column="A1_108" jdbcType="VARCHAR"/>
+            <result property="a1113" column="A1_113" jdbcType="VARCHAR"/>
+            <result property="a1123" column="A1_123" jdbcType="VARCHAR"/>
+            <result property="a1125" column="A1_125" jdbcType="VARCHAR"/>
+            <result property="a1132" column="A1_132" jdbcType="VARCHAR"/>
+            <result property="a1133" column="A1_133" jdbcType="VARCHAR"/>
+            <result property="a1148" column="A1_148" jdbcType="VARCHAR"/>
+            <result property="a1155" column="A1_155" jdbcType="VARCHAR"/>
+            <result property="a1158" column="A1_158" jdbcType="VARCHAR"/>
+            <result property="a1Af" column="A1_Af" jdbcType="VARCHAR"/>
+            <result property="a1Nisa" column="A1_Nisa" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,pos,gene,
+        A1_012,A1_019,A1_028,
+        A1_029,A1_030,A1_037,
+        A1_051,A1_054,A1_073,
+        A1_074,A1_077,A1_079,
+        A1_084,A1_088,A1_097,
+        A1_108,A1_113,A1_123,
+        A1_125,A1_132,A1_133,
+        A1_148,A1_155,A1_158,
+        A1_Af,A1_Nisa
+    </sql>
+</mapper>

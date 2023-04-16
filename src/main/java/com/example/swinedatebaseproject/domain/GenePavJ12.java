@@ -1,10 +1,11 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * 
@@ -13,6 +14,12 @@ import java.io.Serializable;
 @TableName(value ="GENE_pav_J_1_2")
 @Data
 public class GenePavJ12 implements Serializable {
+    /**
+     * 
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
     /**
      * 
      */
@@ -358,7 +365,8 @@ public class GenePavJ12 implements Serializable {
             return false;
         }
         GenePavJ12 other = (GenePavJ12) that;
-        return (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
             && (this.getGene() == null ? other.getGene() == null : this.getGene().equals(other.getGene()))
             && (this.getJ120() == null ? other.getJ120() == null : this.getJ120().equals(other.getJ120()))
             && (this.getJ122() == null ? other.getJ122() == null : this.getJ122().equals(other.getJ122()))
@@ -419,6 +427,7 @@ public class GenePavJ12 implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPos() == null) ? 0 : getPos().hashCode());
         result = prime * result + ((getGene() == null) ? 0 : getGene().hashCode());
         result = prime * result + ((getJ120() == null) ? 0 : getJ120().hashCode());
@@ -483,6 +492,7 @@ public class GenePavJ12 implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", pos=").append(pos);
         sb.append(", gene=").append(gene);
         sb.append(", j120=").append(j120);

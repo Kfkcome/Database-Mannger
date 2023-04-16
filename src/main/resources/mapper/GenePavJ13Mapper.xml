@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.GenePavJ13Mapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.GenePavJ13">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="pos" column="pos" jdbcType="VARCHAR"/>
+            <result property="gene" column="gene" jdbcType="VARCHAR"/>
+            <result property="j169" column="J169" jdbcType="VARCHAR"/>
+            <result property="j16" column="J16" jdbcType="VARCHAR"/>
+            <result property="j170" column="J170" jdbcType="VARCHAR"/>
+            <result property="j171" column="J171" jdbcType="VARCHAR"/>
+            <result property="j172" column="J172" jdbcType="VARCHAR"/>
+            <result property="j173" column="J173" jdbcType="VARCHAR"/>
+            <result property="j174" column="J174" jdbcType="VARCHAR"/>
+            <result property="j175" column="J175" jdbcType="VARCHAR"/>
+            <result property="j176" column="J176" jdbcType="VARCHAR"/>
+            <result property="j177" column="J177" jdbcType="VARCHAR"/>
+            <result property="j178" column="J178" jdbcType="VARCHAR"/>
+            <result property="j179" column="J179" jdbcType="VARCHAR"/>
+            <result property="j17" column="J17" jdbcType="VARCHAR"/>
+            <result property="j180" column="J180" jdbcType="VARCHAR"/>
+            <result property="j181" column="J181" jdbcType="VARCHAR"/>
+            <result property="j182" column="J182" jdbcType="VARCHAR"/>
+            <result property="j183" column="J183" jdbcType="VARCHAR"/>
+            <result property="j184" column="J184" jdbcType="VARCHAR"/>
+            <result property="j185" column="J185" jdbcType="VARCHAR"/>
+            <result property="j187" column="J187" jdbcType="VARCHAR"/>
+            <result property="j1881" column="J188_1" jdbcType="VARCHAR"/>
+            <result property="j1882" column="J188_2" jdbcType="VARCHAR"/>
+            <result property="j1892" column="J189_2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,pos,gene,
+        J169,J16,J170,
+        J171,J172,J173,
+        J174,J175,J176,
+        J177,J178,J179,
+        J17,J180,J181,
+        J182,J183,J184,
+        J185,J187,J188_1,
+        J188_2,J189_2
+    </sql>
+</mapper>

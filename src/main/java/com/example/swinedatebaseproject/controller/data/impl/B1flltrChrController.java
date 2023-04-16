@@ -55,11 +55,17 @@ public class B1flltrChrController extends CommonController<B1flltrChr> {
     public ResponseResult getPageCount() {
         return getPageCountActual();
     }
-
-    @DeleteMapping("/delete")
+    
+    @DeleteMapping("/delete-single-row")
     @Override
-    public ResponseResult deleteByIds(@RequestParam("ids") List<String> ids) {
-        return deleteByIdsActual(ids);
+    public ResponseResult deleteSingleRowById(@RequestBody B1flltrChr row) {
+        return deleteSingleRowByIdActual(row);
+    }
+
+    @DeleteMapping("/delete-rows")
+    @Override
+    public ResponseResult deleteRowsByIds(@RequestBody List<B1flltrChr> rows) {
+        return deleteRowsByIdsActual(rows);
     }
 
     @GetMapping ("/rows-size")

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author s1mple
 * @description 针对表【notice】的数据库操作Service实现
-* @createDate 2023-02-26 16:17:59
+* @createDate 2023-04-16 14:59:22
 */
 @Service
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice>

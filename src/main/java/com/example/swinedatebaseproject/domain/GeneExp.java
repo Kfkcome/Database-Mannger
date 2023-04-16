@@ -17,7 +17,13 @@ public class GeneExp implements Serializable {
     /**
      * 
      */
-    @TableId(value = "gene")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 
+     */
+    @TableField(value = "gene")
     private String gene;
 
     /**
@@ -167,7 +173,8 @@ public class GeneExp implements Serializable {
             return false;
         }
         GeneExp other = (GeneExp) that;
-        return (this.getGene() == null ? other.getGene() == null : this.getGene().equals(other.getGene()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getGene() == null ? other.getGene() == null : this.getGene().equals(other.getGene()))
             && (this.getAnther() == null ? other.getAnther() == null : this.getAnther().equals(other.getAnther()))
             && (this.getBract() == null ? other.getBract() == null : this.getBract().equals(other.getBract()))
             && (this.getCotyledon() == null ? other.getCotyledon() == null : this.getCotyledon().equals(other.getCotyledon()))
@@ -196,6 +203,7 @@ public class GeneExp implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGene() == null) ? 0 : getGene().hashCode());
         result = prime * result + ((getAnther() == null) ? 0 : getAnther().hashCode());
         result = prime * result + ((getBract() == null) ? 0 : getBract().hashCode());
@@ -228,6 +236,7 @@ public class GeneExp implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", gene=").append(gene);
         sb.append(", anther=").append(anther);
         sb.append(", bract=").append(bract);

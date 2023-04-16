@@ -17,8 +17,8 @@ public class Chromosome implements Serializable {
     /**
      * 
      */
-    @TableId(value = "chr_id", type = IdType.AUTO)
-    private Integer chrId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 
@@ -53,7 +53,7 @@ public class Chromosome implements Serializable {
             return false;
         }
         Chromosome other = (Chromosome) that;
-        return (this.getChrId() == null ? other.getChrId() == null : this.getChrId().equals(other.getChrId()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getChrName() == null ? other.getChrName() == null : this.getChrName().equals(other.getChrName()))
             && (this.getChrNum() == null ? other.getChrNum() == null : this.getChrNum().equals(other.getChrNum()))
             && (this.getChrSource() == null ? other.getChrSource() == null : this.getChrSource().equals(other.getChrSource()));
@@ -63,7 +63,7 @@ public class Chromosome implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getChrId() == null) ? 0 : getChrId().hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getChrName() == null) ? 0 : getChrName().hashCode());
         result = prime * result + ((getChrNum() == null) ? 0 : getChrNum().hashCode());
         result = prime * result + ((getChrSource() == null) ? 0 : getChrSource().hashCode());
@@ -76,7 +76,7 @@ public class Chromosome implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", chrId=").append(chrId);
+        sb.append(", id=").append(id);
         sb.append(", chrName=").append(chrName);
         sb.append(", chrNum=").append(chrNum);
         sb.append(", chrSource=").append(chrSource);

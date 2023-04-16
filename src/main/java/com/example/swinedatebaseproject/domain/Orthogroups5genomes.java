@@ -1,10 +1,11 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * 
@@ -13,6 +14,12 @@ import java.io.Serializable;
 @TableName(value ="Orthogroups_5Genomes")
 @Data
 public class Orthogroups5genomes implements Serializable {
+    /**
+     * 
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
     /**
      * 
      */
@@ -64,7 +71,8 @@ public class Orthogroups5genomes implements Serializable {
             return false;
         }
         Orthogroups5genomes other = (Orthogroups5genomes) that;
-        return (this.getOrthogroup() == null ? other.getOrthogroup() == null : this.getOrthogroup().equals(other.getOrthogroup()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getOrthogroup() == null ? other.getOrthogroup() == null : this.getOrthogroup().equals(other.getOrthogroup()))
             && (this.getA2() == null ? other.getA2() == null : this.getA2().equals(other.getA2()))
             && (this.getAthaliana() == null ? other.getAthaliana() == null : this.getAthaliana().equals(other.getAthaliana()))
             && (this.getD5() == null ? other.getD5() == null : this.getD5().equals(other.getD5()))
@@ -76,6 +84,7 @@ public class Orthogroups5genomes implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrthogroup() == null) ? 0 : getOrthogroup().hashCode());
         result = prime * result + ((getA2() == null) ? 0 : getA2().hashCode());
         result = prime * result + ((getAthaliana() == null) ? 0 : getAthaliana().hashCode());
@@ -91,6 +100,7 @@ public class Orthogroups5genomes implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", orthogroup=").append(orthogroup);
         sb.append(", a2=").append(a2);
         sb.append(", athaliana=").append(athaliana);

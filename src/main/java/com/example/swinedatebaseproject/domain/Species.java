@@ -17,8 +17,8 @@ public class Species implements Serializable {
     /**
      * 
      */
-    @TableId(value = "species_id", type = IdType.AUTO)
-    private Integer speciesId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 
@@ -47,7 +47,7 @@ public class Species implements Serializable {
             return false;
         }
         Species other = (Species) that;
-        return (this.getSpeciesId() == null ? other.getSpeciesId() == null : this.getSpeciesId().equals(other.getSpeciesId()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getSpeciesName() == null ? other.getSpeciesName() == null : this.getSpeciesName().equals(other.getSpeciesName()))
             && (this.getGenomeId() == null ? other.getGenomeId() == null : this.getGenomeId().equals(other.getGenomeId()));
     }
@@ -56,7 +56,7 @@ public class Species implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getSpeciesId() == null) ? 0 : getSpeciesId().hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getSpeciesName() == null) ? 0 : getSpeciesName().hashCode());
         result = prime * result + ((getGenomeId() == null) ? 0 : getGenomeId().hashCode());
         return result;
@@ -68,7 +68,7 @@ public class Species implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", speciesId=").append(speciesId);
+        sb.append(", id=").append(id);
         sb.append(", speciesName=").append(speciesName);
         sb.append(", genomeId=").append(genomeId);
         sb.append(", serialVersionUID=").append(serialVersionUID);

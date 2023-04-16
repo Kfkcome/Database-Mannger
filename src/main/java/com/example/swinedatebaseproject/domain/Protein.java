@@ -17,7 +17,13 @@ public class Protein implements Serializable {
     /**
      * 
      */
-    @TableId(value = "protein_id")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 
+     */
+    @TableField(value = "protein_id")
     private String proteinId;
 
     /**
@@ -65,7 +71,8 @@ public class Protein implements Serializable {
             return false;
         }
         Protein other = (Protein) that;
-        return (this.getProteinId() == null ? other.getProteinId() == null : this.getProteinId().equals(other.getProteinId()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getProteinId() == null ? other.getProteinId() == null : this.getProteinId().equals(other.getProteinId()))
             && (this.getProteinFunction() == null ? other.getProteinFunction() == null : this.getProteinFunction().equals(other.getProteinFunction()))
             && (this.getProteinName() == null ? other.getProteinName() == null : this.getProteinName().equals(other.getProteinName()))
             && (this.getProteinLen() == null ? other.getProteinLen() == null : this.getProteinLen().equals(other.getProteinLen()))
@@ -77,6 +84,7 @@ public class Protein implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getProteinId() == null) ? 0 : getProteinId().hashCode());
         result = prime * result + ((getProteinFunction() == null) ? 0 : getProteinFunction().hashCode());
         result = prime * result + ((getProteinName() == null) ? 0 : getProteinName().hashCode());
@@ -92,6 +100,7 @@ public class Protein implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", proteinId=").append(proteinId);
         sb.append(", proteinFunction=").append(proteinFunction);
         sb.append(", proteinName=").append(proteinName);

@@ -17,7 +17,13 @@ public class Genome implements Serializable {
     /**
      * 
      */
-    @TableId(value = "genome_id")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 
+     */
+    @TableField(value = "genome_id")
     private String genomeId;
 
     /**
@@ -47,7 +53,8 @@ public class Genome implements Serializable {
             return false;
         }
         Genome other = (Genome) that;
-        return (this.getGenomeId() == null ? other.getGenomeId() == null : this.getGenomeId().equals(other.getGenomeId()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getGenomeId() == null ? other.getGenomeId() == null : this.getGenomeId().equals(other.getGenomeId()))
             && (this.getGenomeGroup() == null ? other.getGenomeGroup() == null : this.getGenomeGroup().equals(other.getGenomeGroup()))
             && (this.getVersion() == null ? other.getVersion() == null : this.getVersion().equals(other.getVersion()));
     }
@@ -56,6 +63,7 @@ public class Genome implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGenomeId() == null) ? 0 : getGenomeId().hashCode());
         result = prime * result + ((getGenomeGroup() == null) ? 0 : getGenomeGroup().hashCode());
         result = prime * result + ((getVersion() == null) ? 0 : getVersion().hashCode());
@@ -68,6 +76,7 @@ public class Genome implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", genomeId=").append(genomeId);
         sb.append(", genomeGroup=").append(genomeGroup);
         sb.append(", version=").append(version);

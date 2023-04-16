@@ -55,11 +55,17 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
     public ResponseResult getPageCount() {
         return getPageCountActual();
     }
-
-    @DeleteMapping("/delete")
+    
+    @DeleteMapping("/delete-single-row")
     @Override
-    public ResponseResult deleteByIds(@RequestParam("ids") List<String> ids) {
-        return deleteByIdsActual(ids);
+    public ResponseResult deleteSingleRowById(@RequestBody Orthogroups5genomesPlus row) {
+        return deleteSingleRowByIdActual(row);
+    }
+
+    @DeleteMapping("/delete-rows")
+    @Override
+    public ResponseResult deleteRowsByIds(@RequestBody List<Orthogroups5genomesPlus> rows) {
+        return deleteRowsByIdsActual(rows);
     }
 
     @GetMapping ("/rows-size")

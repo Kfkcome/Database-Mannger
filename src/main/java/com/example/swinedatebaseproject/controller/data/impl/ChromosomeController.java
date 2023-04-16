@@ -55,11 +55,17 @@ public class ChromosomeController extends CommonController<Chromosome> {
     public ResponseResult getPageCount() {
         return getPageCountActual();
     }
-
-    @DeleteMapping("/delete")
+    
+    @DeleteMapping("/delete-single-row")
     @Override
-    public ResponseResult deleteByIds(@RequestParam("ids") List<String> ids) {
-        return deleteByIdsActual(ids);
+    public ResponseResult deleteSingleRowById(@RequestBody Chromosome row) {
+        return deleteSingleRowByIdActual(row);
+    }
+
+    @DeleteMapping("/delete-rows")
+    @Override
+    public ResponseResult deleteRowsByIds(@RequestBody List<Chromosome> rows) {
+        return deleteRowsByIdsActual(rows);
     }
 
     @GetMapping ("/rows-size")

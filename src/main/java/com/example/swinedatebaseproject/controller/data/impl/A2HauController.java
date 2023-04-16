@@ -55,11 +55,17 @@ public class A2HauController extends CommonController<A2Hau> {
     public ResponseResult getPageCount() {
         return getPageCountActual();
     }
-
-    @DeleteMapping("/delete")
+    
+    @DeleteMapping("/delete-single-row")
     @Override
-    public ResponseResult deleteByIds(@RequestParam("ids") List<String> ids) {
-        return deleteByIdsActual(ids);
+    public ResponseResult deleteSingleRowById(@RequestBody A2Hau row) {
+        return deleteSingleRowByIdActual(row);
+    }
+
+    @DeleteMapping("/delete-rows")
+    @Override
+    public ResponseResult deleteRowsByIds(@RequestBody List<A2Hau> rows) {
+        return deleteRowsByIdsActual(rows);
     }
 
     @GetMapping ("/rows-size")

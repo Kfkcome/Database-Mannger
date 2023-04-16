@@ -55,11 +55,17 @@ public class Flltr8genomes5ltrClusterFamilyController extends CommonController<F
     public ResponseResult getPageCount() {
         return getPageCountActual();
     }
-
-    @DeleteMapping("/delete")
+    
+    @DeleteMapping("/delete-single-row")
     @Override
-    public ResponseResult deleteByIds(@RequestParam("ids") List<String> ids) {
-        return deleteByIdsActual(ids);
+    public ResponseResult deleteSingleRowById(@RequestBody Flltr8genomes5ltrClusterFamily row) {
+        return deleteSingleRowByIdActual(row);
+    }
+
+    @DeleteMapping("/delete-rows")
+    @Override
+    public ResponseResult deleteRowsByIds(@RequestBody List<Flltr8genomes5ltrClusterFamily> rows) {
+        return deleteRowsByIdsActual(rows);
     }
 
     @GetMapping ("/rows-size")

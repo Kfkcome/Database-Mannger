@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class JwtFilter extends OncePerRequestFilter {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private static final String USERNAME = "userName";
 
@@ -51,7 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String headerValue = request.getHeader("Authorization");
         if (Objects.isNull(headerValue)) {
             ResponseResult responseResult = ResponseResult.error(ResponseResultCode.NOT_LOGIN.getCode(), ResponseResultCode.NOT_LOGIN.getMessage());
-            String value = objectMapper.writeValueAsString(responseResult);
+            String value = OBJECT_MAPPER.writeValueAsString(responseResult);
             WebUtils.renderString(response, value);
             return;
         }
@@ -59,7 +59,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String userName = (String) JwtUtils.parseJWT(headerValue).get(USERNAME);
         if (Objects.isNull(userName)) {
             ResponseResult responseResult = ResponseResult.error(ResponseResultCode.AUTHEMTICATION_FAIL.getCode(), ResponseResultCode.AUTHEMTICATION_FAIL.getMessage());
-            String value = objectMapper.writeValueAsString(responseResult);
+            String value = OBJECT_MAPPER.writeValueAsString(responseResult);
             WebUtils.renderString(response, value);
             return;
         }
@@ -70,7 +70,7 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }else{
             ResponseResult responseResult = ResponseResult.error(ResponseResultCode.AUTHEMTICATION_FAIL.getCode(), ResponseResultCode.AUTHEMTICATION_FAIL.getMessage());
-            String value = objectMapper.writeValueAsString(responseResult);
+            String value = OBJECT_MAPPER.writeValueAsString(responseResult);
             WebUtils.renderString(response, value);
         }
     }

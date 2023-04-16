@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.GenePavJ3PlusMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.GenePavJ3Plus">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="pos" column="pos" jdbcType="VARCHAR"/>
+            <result property="gene" column="gene" jdbcType="VARCHAR"/>
+            <result property="j31" column="J31" jdbcType="VARCHAR"/>
+            <result property="j32" column="J32" jdbcType="VARCHAR"/>
+            <result property="j33" column="J33" jdbcType="VARCHAR"/>
+            <result property="j34" column="J34" jdbcType="VARCHAR"/>
+            <result property="j35" column="J35" jdbcType="VARCHAR"/>
+            <result property="j362" column="J36_2" jdbcType="VARCHAR"/>
+            <result property="j36" column="J36" jdbcType="VARCHAR"/>
+            <result property="j37" column="J37" jdbcType="VARCHAR"/>
+            <result property="j38" column="J38" jdbcType="VARCHAR"/>
+            <result property="j39" column="J39" jdbcType="VARCHAR"/>
+            <result property="j3" column="J3" jdbcType="VARCHAR"/>
+            <result property="j40" column="J40" jdbcType="VARCHAR"/>
+            <result property="j41" column="J41" jdbcType="VARCHAR"/>
+            <result property="j42" column="J42" jdbcType="VARCHAR"/>
+            <result property="j43" column="J43" jdbcType="VARCHAR"/>
+            <result property="j44" column="J44" jdbcType="VARCHAR"/>
+            <result property="j45" column="J45" jdbcType="VARCHAR"/>
+            <result property="j46" column="J46" jdbcType="VARCHAR"/>
+            <result property="j47" column="J47" jdbcType="VARCHAR"/>
+            <result property="j48" column="J48" jdbcType="VARCHAR"/>
+            <result property="j49" column="J49" jdbcType="VARCHAR"/>
+            <result property="j4" column="J4" jdbcType="VARCHAR"/>
+            <result property="j50" column="J50" jdbcType="VARCHAR"/>
+            <result property="j51" column="J51" jdbcType="VARCHAR"/>
+            <result property="j52" column="J52" jdbcType="VARCHAR"/>
+            <result property="j53" column="J53" jdbcType="VARCHAR"/>
+            <result property="j54" column="J54" jdbcType="VARCHAR"/>
+            <result property="j55" column="J55" jdbcType="VARCHAR"/>
+            <result property="j56" column="J56" jdbcType="VARCHAR"/>
+            <result property="j57" column="J57" jdbcType="VARCHAR"/>
+            <result property="j58" column="J58" jdbcType="VARCHAR"/>
+            <result property="j59" column="J59" jdbcType="VARCHAR"/>
+            <result property="j5" column="J5" jdbcType="VARCHAR"/>
+            <result property="j60" column="J60" jdbcType="VARCHAR"/>
+            <result property="j61" column="J61" jdbcType="VARCHAR"/>
+            <result property="j62" column="J62" jdbcType="VARCHAR"/>
+            <result property="j63" column="J63" jdbcType="VARCHAR"/>
+            <result property="j64" column="J64" jdbcType="VARCHAR"/>
+            <result property="j65" column="J65" jdbcType="VARCHAR"/>
+            <result property="j66" column="J66" jdbcType="VARCHAR"/>
+            <result property="j67" column="J67" jdbcType="VARCHAR"/>
+            <result property="j68" column="J68" jdbcType="VARCHAR"/>
+            <result property="j69" column="J69" jdbcType="VARCHAR"/>
+            <result property="j6" column="J6" jdbcType="VARCHAR"/>
+            <result property="j70" column="J70" jdbcType="VARCHAR"/>
+            <result property="j71" column="J71" jdbcType="VARCHAR"/>
+            <result property="j72" column="J72" jdbcType="VARCHAR"/>
+            <result property="j73" column="J73" jdbcType="VARCHAR"/>
+            <result property="j74" column="J74" jdbcType="VARCHAR"/>
+            <result property="j75" column="J75" jdbcType="VARCHAR"/>
+            <result property="j76" column="J76" jdbcType="VARCHAR"/>
+            <result property="j77" column="J77" jdbcType="VARCHAR"/>
+            <result property="j78" column="J78" jdbcType="VARCHAR"/>
+            <result property="j79" column="J79" jdbcType="VARCHAR"/>
+            <result property="j7" column="J7" jdbcType="VARCHAR"/>
+            <result property="j80" column="J80" jdbcType="VARCHAR"/>
+            <result property="j81" column="J81" jdbcType="VARCHAR"/>
+            <result property="j82" column="J82" jdbcType="VARCHAR"/>
+            <result property="j83" column="J83" jdbcType="VARCHAR"/>
+            <result property="j84" column="J84" jdbcType="VARCHAR"/>
+            <result property="j85" column="J85" jdbcType="VARCHAR"/>
+            <result property="j86" column="J86" jdbcType="VARCHAR"/>
+            <result property="j87" column="J87" jdbcType="VARCHAR"/>
+            <result property="j88" column="J88" jdbcType="VARCHAR"/>
+            <result property="j89" column="J89" jdbcType="VARCHAR"/>
+            <result property="j90" column="J90" jdbcType="VARCHAR"/>
+            <result property="j91" column="J91" jdbcType="VARCHAR"/>
+            <result property="j92" column="J92" jdbcType="VARCHAR"/>
+            <result property="j93" column="J93" jdbcType="VARCHAR"/>
+            <result property="j94" column="J94" jdbcType="VARCHAR"/>
+            <result property="j95" column="J95" jdbcType="VARCHAR"/>
+            <result property="j96" column="J96" jdbcType="VARCHAR"/>
+            <result property="j97" column="J97" jdbcType="VARCHAR"/>
+            <result property="j98" column="J98" jdbcType="VARCHAR"/>
+            <result property="j9" column="J9" jdbcType="VARCHAR"/>
+            <result property="wc0001" column="WC0001" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,pos,gene,
+        J31,J32,J33,
+        J34,J35,J36_2,
+        J36,J37,J38,
+        J39,J3,J40,
+        J41,J42,J43,
+        J44,J45,J46,
+        J47,J48,J49,
+        J4,J50,J51,
+        J52,J53,J54,
+        J55,J56,J57,
+        J58,J59,J5,
+        J60,J61,J62,
+        J63,J64,J65,
+        J66,J67,J68,
+        J69,J6,J70,
+        J71,J72,J73,
+        J74,J75,J76,
+        J77,J78,J79,
+        J7,J80,J81,
+        J82,J83,J84,
+        J85,J86,J87,
+        J88,J89,J90,
+        J91,J92,J93,
+        J94,J95,J96,
+        J97,J98,J9,
+        WC0001
+    </sql>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.Orthogroups5genomesPlusMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.Orthogroups5genomesPlus">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="orthogroup" column="Orthogroup" jdbcType="VARCHAR"/>
+            <result property="a1AHau" column="A1_a_HAU" jdbcType="VARCHAR"/>
+            <result property="a1Hau" column="A1_HAU" jdbcType="VARCHAR"/>
+            <result property="a2Hau" column="A2_HAU" jdbcType="VARCHAR"/>
+            <result property="b1Hau" column="B1_HAU" jdbcType="VARCHAR"/>
+            <result property="c1Hau" column="C1_HAU" jdbcType="VARCHAR"/>
+            <result property="d5Hau" column="D5_HAU" jdbcType="VARCHAR"/>
+            <result property="e1Hau" column="E1_HAU" jdbcType="VARCHAR"/>
+            <result property="f1Hau" column="F1_HAU" jdbcType="VARCHAR"/>
+            <result property="g1Hau" column="G1_HAU" jdbcType="VARCHAR"/>
+            <result property="k2Hua" column="K2_HUA" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,Orthogroup,A1_a_HAU,
+        A1_HAU,A2_HAU,B1_HAU,
+        C1_HAU,D5_HAU,E1_HAU,
+        F1_HAU,G1_HAU,K2_HUA
+    </sql>
+</mapper>
