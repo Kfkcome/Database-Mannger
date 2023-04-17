@@ -115,9 +115,6 @@ public abstract class CommonController<T> {
     }
 
 
-
-
-
     public abstract ResponseResult deleteRowsByIds(List<T> rows);
 
     public ResponseResult deleteRowsByIdsActual(List<T> rows) {
@@ -366,15 +363,6 @@ public abstract class CommonController<T> {
 
     }
 
-    public abstract ResponseResult deleteRowsByIds(List<Integer> ids);
-
-    public ResponseResult deleteRowsByIdsActual(List<Integer> ids) {
-        if (service.removeByIds(ids)) {
-            return ResponseResult.success();
-        } else {
-            return ResponseResult.error(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
-        }
-    }
 
     // <-----------------------------------------private method----------------------------------------------------------------------->
 
