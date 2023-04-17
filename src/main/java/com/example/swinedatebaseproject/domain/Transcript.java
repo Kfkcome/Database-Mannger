@@ -17,7 +17,13 @@ public class Transcript implements Serializable {
     /**
      * 
      */
-    @TableId(value = "trans_id")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 
+     */
+    @TableField(value = "trans_id")
     private String transId;
 
     /**
@@ -53,7 +59,8 @@ public class Transcript implements Serializable {
             return false;
         }
         Transcript other = (Transcript) that;
-        return (this.getTransId() == null ? other.getTransId() == null : this.getTransId().equals(other.getTransId()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getTransId() == null ? other.getTransId() == null : this.getTransId().equals(other.getTransId()))
             && (this.getGeneId() == null ? other.getGeneId() == null : this.getGeneId().equals(other.getGeneId()))
             && (this.getTransStart() == null ? other.getTransStart() == null : this.getTransStart().equals(other.getTransStart()))
             && (this.getTransEnd() == null ? other.getTransEnd() == null : this.getTransEnd().equals(other.getTransEnd()));
@@ -63,6 +70,7 @@ public class Transcript implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getTransId() == null) ? 0 : getTransId().hashCode());
         result = prime * result + ((getGeneId() == null) ? 0 : getGeneId().hashCode());
         result = prime * result + ((getTransStart() == null) ? 0 : getTransStart().hashCode());
@@ -76,6 +84,7 @@ public class Transcript implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", transId=").append(transId);
         sb.append(", geneId=").append(geneId);
         sb.append(", transStart=").append(transStart);

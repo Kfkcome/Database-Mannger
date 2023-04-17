@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author s1mple
 * @description 针对表【GENE_pav_J2】的数据库操作Service实现
-* @createDate 2023-02-26 00:20:23
+* @createDate 2023-04-16 14:59:21
 */
 @Service
 public class GenePavJ2ServiceImpl extends ServiceImpl<GenePavJ2Mapper, GenePavJ2>

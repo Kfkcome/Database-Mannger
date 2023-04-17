@@ -17,8 +17,8 @@ public class F1flltrChr implements Serializable {
     /**
      * 
      */
-    @TableId(value = "flFTR_TE")
-    private String flftrTe;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 
@@ -41,6 +41,12 @@ public class F1flltrChr implements Serializable {
     /**
      * 
      */
+    @TableField(value = "flFTR_TE")
+    private String flftrTe;
+
+    /**
+     * 
+     */
     @TableField(value = "strand")
     private String strand;
 
@@ -59,10 +65,11 @@ public class F1flltrChr implements Serializable {
             return false;
         }
         F1flltrChr other = (F1flltrChr) that;
-        return (this.getFlftrTe() == null ? other.getFlftrTe() == null : this.getFlftrTe().equals(other.getFlftrTe()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getFlltrChr() == null ? other.getFlltrChr() == null : this.getFlltrChr().equals(other.getFlltrChr()))
             && (this.getFlltrStart() == null ? other.getFlltrStart() == null : this.getFlltrStart().equals(other.getFlltrStart()))
             && (this.getFlftrEnd() == null ? other.getFlftrEnd() == null : this.getFlftrEnd().equals(other.getFlftrEnd()))
+            && (this.getFlftrTe() == null ? other.getFlftrTe() == null : this.getFlftrTe().equals(other.getFlftrTe()))
             && (this.getStrand() == null ? other.getStrand() == null : this.getStrand().equals(other.getStrand()));
     }
 
@@ -70,10 +77,11 @@ public class F1flltrChr implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getFlftrTe() == null) ? 0 : getFlftrTe().hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getFlltrChr() == null) ? 0 : getFlltrChr().hashCode());
         result = prime * result + ((getFlltrStart() == null) ? 0 : getFlltrStart().hashCode());
         result = prime * result + ((getFlftrEnd() == null) ? 0 : getFlftrEnd().hashCode());
+        result = prime * result + ((getFlftrTe() == null) ? 0 : getFlftrTe().hashCode());
         result = prime * result + ((getStrand() == null) ? 0 : getStrand().hashCode());
         return result;
     }
@@ -84,10 +92,11 @@ public class F1flltrChr implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", flftrTe=").append(flftrTe);
+        sb.append(", id=").append(id);
         sb.append(", flltrChr=").append(flltrChr);
         sb.append(", flltrStart=").append(flltrStart);
         sb.append(", flftrEnd=").append(flftrEnd);
+        sb.append(", flftrTe=").append(flftrTe);
         sb.append(", strand=").append(strand);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

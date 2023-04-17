@@ -1,10 +1,11 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * 
@@ -13,6 +14,12 @@ import java.io.Serializable;
 @TableName(value ="GENE_pav_J3_plus")
 @Data
 public class GenePavJ3Plus implements Serializable {
+    /**
+     * 
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
     /**
      * 
      */
@@ -58,7 +65,7 @@ public class GenePavJ3Plus implements Serializable {
     /**
      * 
      */
-    @TableField(value = "J36-2")
+    @TableField(value = "J36_2")
     private String j362;
 
     /**
@@ -496,7 +503,8 @@ public class GenePavJ3Plus implements Serializable {
             return false;
         }
         GenePavJ3Plus other = (GenePavJ3Plus) that;
-        return (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
             && (this.getGene() == null ? other.getGene() == null : this.getGene().equals(other.getGene()))
             && (this.getJ31() == null ? other.getJ31() == null : this.getJ31().equals(other.getJ31()))
             && (this.getJ32() == null ? other.getJ32() == null : this.getJ32().equals(other.getJ32()))
@@ -580,6 +588,7 @@ public class GenePavJ3Plus implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPos() == null) ? 0 : getPos().hashCode());
         result = prime * result + ((getGene() == null) ? 0 : getGene().hashCode());
         result = prime * result + ((getJ31() == null) ? 0 : getJ31().hashCode());
@@ -667,6 +676,7 @@ public class GenePavJ3Plus implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", pos=").append(pos);
         sb.append(", gene=").append(gene);
         sb.append(", j31=").append(j31);

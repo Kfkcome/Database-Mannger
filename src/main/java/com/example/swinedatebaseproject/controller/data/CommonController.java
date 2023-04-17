@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.swinedatebaseproject.constant.CommonConstants;
 import com.example.swinedatebaseproject.constant.DomainUnit;
 import com.example.swinedatebaseproject.constant.MyBatisConstants;
+import com.example.swinedatebaseproject.domain.Cds;
 import com.example.swinedatebaseproject.listener.CommonReadListener;
 import com.example.swinedatebaseproject.response.ResponseResult;
 import com.example.swinedatebaseproject.response.ResponseResultCode;
@@ -20,6 +21,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -111,13 +114,29 @@ public abstract class CommonController<T> {
         return ResponseResultUtils.getSuccessResponseResult("pageCount", pageCount);
     }
 
-    public abstract ResponseResult deleteByIds(List<String> ids);
 
-    public ResponseResult deleteByIdsActual(List<String> ids) {
-        if (service.removeByIds(ids)) {
+
+
+
+    public abstract ResponseResult deleteRowsByIds(List<T> rows);
+
+    public ResponseResult deleteRowsByIdsActual(List<T> rows) {
+        if (service.removeByIds(rows)) {
             return ResponseResult.success(ResponseResultCode.DELETE_SUCCESS.getCode(), ResponseResultCode.DELETE_SUCCESS.getMessage());
         } else {
-            return ResponseResult.success(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
+            return ResponseResult.error(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public abstract ResponseResult deleteSingleRowById(@RequestBody T row);
+
+    @DeleteMapping("/delete")
+    public ResponseResult deleteSingleRowByIdActual(@RequestBody T row) {
+        if (service.removeById(row)) {
+            return ResponseResult.success(ResponseResultCode.DELETE_SUCCESS.getCode(), ResponseResultCode.DELETE_SUCCESS.getMessage());
+        } else {
+            return ResponseResult.error(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
         }
     }
 

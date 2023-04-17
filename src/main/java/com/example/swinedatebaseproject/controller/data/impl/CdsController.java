@@ -1,8 +1,8 @@
 package com.example.swinedatebaseproject.controller.data.impl;
 
 import com.example.swinedatebaseproject.controller.data.CommonController;
-import com.example.swinedatebaseproject.domain.Cds;
 import com.example.swinedatebaseproject.response.ResponseResult;
+import com.example.swinedatebaseproject.domain.Cds;
 import com.example.swinedatebaseproject.service.CdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 /**
- * @Author 刘铭康
- * @Date 2022/11/14
+ * @作者 DD
+ * @创建时间 2023/3/6
  */
 
 @RestController
-@RequestMapping(value = "/cds",method = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.POST})
+@RequestMapping(value = "cds",method = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.POST})
 public class CdsController extends CommonController<Cds> {
+
 
     @Autowired
     public CdsController(CdsService service) {
@@ -54,11 +55,17 @@ public class CdsController extends CommonController<Cds> {
     public ResponseResult getPageCount() {
         return getPageCountActual();
     }
-
-    @DeleteMapping("/delete")
+    
+    @DeleteMapping("/delete-single-row")
     @Override
-    public ResponseResult deleteByIds(@RequestParam("ids") List<String> ids) {
-        return deleteByIdsActual(ids);
+    public ResponseResult deleteSingleRowById(@RequestBody Cds row) {
+        return deleteSingleRowByIdActual(row);
+    }
+
+    @DeleteMapping("/delete-rows")
+    @Override
+    public ResponseResult deleteRowsByIds(@RequestBody List<Cds> rows) {
+        return deleteRowsByIdsActual(rows);
     }
 
     @GetMapping ("/rows-size")
@@ -116,6 +123,5 @@ public class CdsController extends CommonController<Cds> {
         return deleteBatchOnSubTableActual(formValues);
     }
 
-
-
 }
+

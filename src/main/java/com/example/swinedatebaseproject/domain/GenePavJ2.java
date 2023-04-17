@@ -1,10 +1,11 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * 
@@ -13,6 +14,12 @@ import java.io.Serializable;
 @TableName(value ="GENE_pav_J2")
 @Data
 public class GenePavJ2 implements Serializable {
+    /**
+     * 
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
     /**
      * 
      */
@@ -172,7 +179,7 @@ public class GenePavJ2 implements Serializable {
     /**
      * 
      */
-    @TableField(value = "J27-2")
+    @TableField(value = "J27_2")
     private String j272;
 
     /**
@@ -214,7 +221,8 @@ public class GenePavJ2 implements Serializable {
             return false;
         }
         GenePavJ2 other = (GenePavJ2) that;
-        return (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
             && (this.getGene() == null ? other.getGene() == null : this.getGene().equals(other.getGene()))
             && (this.getJ200() == null ? other.getJ200() == null : this.getJ200().equals(other.getJ200()))
             && (this.getJ201() == null ? other.getJ201() == null : this.getJ201().equals(other.getJ201()))
@@ -251,6 +259,7 @@ public class GenePavJ2 implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPos() == null) ? 0 : getPos().hashCode());
         result = prime * result + ((getGene() == null) ? 0 : getGene().hashCode());
         result = prime * result + ((getJ200() == null) ? 0 : getJ200().hashCode());
@@ -291,6 +300,7 @@ public class GenePavJ2 implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", pos=").append(pos);
         sb.append(", gene=").append(gene);
         sb.append(", j200=").append(j200);

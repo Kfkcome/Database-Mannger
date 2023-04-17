@@ -17,6 +17,12 @@ public class GenePavGar implements Serializable {
     /**
      * 
      */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 
+     */
     @TableField(value = "pos")
     private String pos;
 
@@ -299,7 +305,8 @@ public class GenePavGar implements Serializable {
             return false;
         }
         GenePavGar other = (GenePavGar) that;
-        return (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
             && (this.getGene() == null ? other.getGene() == null : this.getGene().equals(other.getGene()))
             && (this.getGar01() == null ? other.getGar01() == null : this.getGar01().equals(other.getGar01()))
             && (this.getGar02() == null ? other.getGar02() == null : this.getGar02().equals(other.getGar02()))
@@ -350,6 +357,7 @@ public class GenePavGar implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPos() == null) ? 0 : getPos().hashCode());
         result = prime * result + ((getGene() == null) ? 0 : getGene().hashCode());
         result = prime * result + ((getGar01() == null) ? 0 : getGar01().hashCode());
@@ -404,6 +412,7 @@ public class GenePavGar implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", pos=").append(pos);
         sb.append(", gene=").append(gene);
         sb.append(", gar01=").append(gar01);

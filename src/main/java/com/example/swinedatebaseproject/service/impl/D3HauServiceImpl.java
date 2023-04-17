@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author s1mple
 * @description 针对表【D3_HAU】的数据库操作Service实现
-* @createDate 2023-02-26 00:20:22
+* @createDate 2023-04-16 14:59:12
 */
 @Service
 public class D3HauServiceImpl extends ServiceImpl<D3HauMapper, D3Hau>

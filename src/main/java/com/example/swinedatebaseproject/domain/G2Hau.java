@@ -17,6 +17,12 @@ public class G2Hau implements Serializable {
     /**
      * 
      */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 
+     */
     @TableField(value = "chromosome")
     private String chromosome;
 
@@ -83,7 +89,8 @@ public class G2Hau implements Serializable {
             return false;
         }
         G2Hau other = (G2Hau) that;
-        return (this.getChromosome() == null ? other.getChromosome() == null : this.getChromosome().equals(other.getChromosome()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getChromosome() == null ? other.getChromosome() == null : this.getChromosome().equals(other.getChromosome()))
             && (this.getSource() == null ? other.getSource() == null : this.getSource().equals(other.getSource()))
             && (this.getFeature() == null ? other.getFeature() == null : this.getFeature().equals(other.getFeature()))
             && (this.getStart() == null ? other.getStart() == null : this.getStart().equals(other.getStart()))
@@ -98,6 +105,7 @@ public class G2Hau implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getChromosome() == null) ? 0 : getChromosome().hashCode());
         result = prime * result + ((getSource() == null) ? 0 : getSource().hashCode());
         result = prime * result + ((getFeature() == null) ? 0 : getFeature().hashCode());
@@ -116,6 +124,7 @@ public class G2Hau implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", chromosome=").append(chromosome);
         sb.append(", source=").append(source);
         sb.append(", feature=").append(feature);

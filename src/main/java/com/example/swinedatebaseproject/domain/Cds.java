@@ -4,9 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * 
@@ -18,8 +17,8 @@ public class Cds implements Serializable {
     /**
      * 
      */
-    @TableId(value = "cds_id", type = IdType.AUTO)
-    private Integer cdsId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 
@@ -72,7 +71,7 @@ public class Cds implements Serializable {
             return false;
         }
         Cds other = (Cds) that;
-        return (this.getCdsId() == null ? other.getCdsId() == null : this.getCdsId().equals(other.getCdsId()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getCdsName() == null ? other.getCdsName() == null : this.getCdsName().equals(other.getCdsName()))
             && (this.getCdsLen() == null ? other.getCdsLen() == null : this.getCdsLen().equals(other.getCdsLen()))
             && (this.getCdsLocation() == null ? other.getCdsLocation() == null : this.getCdsLocation().equals(other.getCdsLocation()))
@@ -85,7 +84,7 @@ public class Cds implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getCdsId() == null) ? 0 : getCdsId().hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getCdsName() == null) ? 0 : getCdsName().hashCode());
         result = prime * result + ((getCdsLen() == null) ? 0 : getCdsLen().hashCode());
         result = prime * result + ((getCdsLocation() == null) ? 0 : getCdsLocation().hashCode());
@@ -101,7 +100,7 @@ public class Cds implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", cdsId=").append(cdsId);
+        sb.append(", id=").append(id);
         sb.append(", cdsName=").append(cdsName);
         sb.append(", cdsLen=").append(cdsLen);
         sb.append(", cdsLocation=").append(cdsLocation);

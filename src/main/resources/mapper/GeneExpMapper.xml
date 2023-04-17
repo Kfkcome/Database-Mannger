@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.GeneExpMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.GeneExp">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="gene" column="gene" jdbcType="VARCHAR"/>
+            <result property="anther" column="anther" jdbcType="VARCHAR"/>
+            <result property="bract" column="bract" jdbcType="VARCHAR"/>
+            <result property="cotyledon" column="cotyledon" jdbcType="VARCHAR"/>
+            <result property="fiber10DPA" column="fiber10_d_p_a" jdbcType="VARCHAR"/>
+            <result property="fiber20DPA" column="fiber20_d_p_a" jdbcType="VARCHAR"/>
+            <result property="fiber5DPA" column="fiber5_d_p_a" jdbcType="VARCHAR"/>
+            <result property="flower" column="flower" jdbcType="VARCHAR"/>
+            <result property="leaf" column="leaf" jdbcType="VARCHAR"/>
+            <result property="ovule0DPA" column="ovule0_d_p_a" jdbcType="VARCHAR"/>
+            <result property="ovule10DPA" column="ovule10_d_p_a" jdbcType="VARCHAR"/>
+            <result property="ovule20DPA" column="ovule20_d_p_a" jdbcType="VARCHAR"/>
+            <result property="ovule5DPA" column="ovule5_d_p_a" jdbcType="VARCHAR"/>
+            <result property="ovuleF10DPA" column="ovule_f10_d_p_a" jdbcType="VARCHAR"/>
+            <result property="ovuleF20DPA" column="ovule_f20_d_p_a" jdbcType="VARCHAR"/>
+            <result property="ovuleF5DPA" column="ovule_f5_d_p_a" jdbcType="VARCHAR"/>
+            <result property="petal" column="petal" jdbcType="VARCHAR"/>
+            <result property="phloem" column="phloem" jdbcType="VARCHAR"/>
+            <result property="seed" column="seed" jdbcType="VARCHAR"/>
+            <result property="seedlingroot" column="seedlingroot" jdbcType="VARCHAR"/>
+            <result property="seedlingstem" column="seedlingstem" jdbcType="VARCHAR"/>
+            <result property="sepal" column="sepal" jdbcType="VARCHAR"/>
+            <result property="stigma" column="stigma" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,gene,anther,
+        bract,cotyledon,fiber10_d_p_a,
+        fiber20_d_p_a,fiber5_d_p_a,flower,
+        leaf,ovule0_d_p_a,ovule10_d_p_a,
+        ovule20_d_p_a,ovule5_d_p_a,ovule_f10_d_p_a,
+        ovule_f20_d_p_a,ovule_f5_d_p_a,petal,
+        phloem,seed,seedlingroot,
+        seedlingstem,sepal,stigma
+    </sql>
+</mapper>

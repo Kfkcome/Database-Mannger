@@ -17,7 +17,13 @@ public class Flltr8genomes5ltrClusterFamily implements Serializable {
     /**
      * 
      */
-    @TableId(value = "cluster")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 
+     */
+    @TableField(value = "cluster")
     private String cluster;
 
     /**
@@ -83,7 +89,8 @@ public class Flltr8genomes5ltrClusterFamily implements Serializable {
             return false;
         }
         Flltr8genomes5ltrClusterFamily other = (Flltr8genomes5ltrClusterFamily) that;
-        return (this.getCluster() == null ? other.getCluster() == null : this.getCluster().equals(other.getCluster()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getCluster() == null ? other.getCluster() == null : this.getCluster().equals(other.getCluster()))
             && (this.getA2() == null ? other.getA2() == null : this.getA2().equals(other.getA2()))
             && (this.getG1() == null ? other.getG1() == null : this.getG1().equals(other.getG1()))
             && (this.getE1() == null ? other.getE1() == null : this.getE1().equals(other.getE1()))
@@ -98,6 +105,7 @@ public class Flltr8genomes5ltrClusterFamily implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getCluster() == null) ? 0 : getCluster().hashCode());
         result = prime * result + ((getA2() == null) ? 0 : getA2().hashCode());
         result = prime * result + ((getG1() == null) ? 0 : getG1().hashCode());
@@ -116,6 +124,7 @@ public class Flltr8genomes5ltrClusterFamily implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", cluster=").append(cluster);
         sb.append(", a2=").append(a2);
         sb.append(", g1=").append(g1);

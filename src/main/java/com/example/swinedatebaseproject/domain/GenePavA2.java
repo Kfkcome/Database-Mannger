@@ -17,6 +17,12 @@ public class GenePavA2 implements Serializable {
     /**
      * 
      */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 
+     */
     @TableField(value = "pos")
     private String pos;
 
@@ -389,7 +395,8 @@ public class GenePavA2 implements Serializable {
             return false;
         }
         GenePavA2 other = (GenePavA2) that;
-        return (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getPos() == null ? other.getPos() == null : this.getPos().equals(other.getPos()))
             && (this.getGene() == null ? other.getGene() == null : this.getGene().equals(other.getGene()))
             && (this.getA2001() == null ? other.getA2001() == null : this.getA2001().equals(other.getA2001()))
             && (this.getA2004() == null ? other.getA2004() == null : this.getA2004().equals(other.getA2004()))
@@ -455,6 +462,7 @@ public class GenePavA2 implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPos() == null) ? 0 : getPos().hashCode());
         result = prime * result + ((getGene() == null) ? 0 : getGene().hashCode());
         result = prime * result + ((getA2001() == null) ? 0 : getA2001().hashCode());
@@ -524,6 +532,7 @@ public class GenePavA2 implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", pos=").append(pos);
         sb.append(", gene=").append(gene);
         sb.append(", a2001=").append(a2001);

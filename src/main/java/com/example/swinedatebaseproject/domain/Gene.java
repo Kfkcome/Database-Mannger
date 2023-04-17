@@ -15,9 +15,15 @@ import lombok.Data;
 @Data
 public class Gene implements Serializable {
     /**
+     * 
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
      * 基因id
      */
-    @TableId(value = "gene_id")
+    @TableField(value = "gene_id")
     private String geneId;
 
     /**
@@ -71,7 +77,8 @@ public class Gene implements Serializable {
             return false;
         }
         Gene other = (Gene) that;
-        return (this.getGeneId() == null ? other.getGeneId() == null : this.getGeneId().equals(other.getGeneId()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getGeneId() == null ? other.getGeneId() == null : this.getGeneId().equals(other.getGeneId()))
             && (this.getChrId() == null ? other.getChrId() == null : this.getChrId().equals(other.getChrId()))
             && (this.getGeneName() == null ? other.getGeneName() == null : this.getGeneName().equals(other.getGeneName()))
             && (this.getGeneStart() == null ? other.getGeneStart() == null : this.getGeneStart().equals(other.getGeneStart()))
@@ -84,6 +91,7 @@ public class Gene implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGeneId() == null) ? 0 : getGeneId().hashCode());
         result = prime * result + ((getChrId() == null) ? 0 : getChrId().hashCode());
         result = prime * result + ((getGeneName() == null) ? 0 : getGeneName().hashCode());
@@ -100,6 +108,7 @@ public class Gene implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", geneId=").append(geneId);
         sb.append(", chrId=").append(chrId);
         sb.append(", geneName=").append(geneName);

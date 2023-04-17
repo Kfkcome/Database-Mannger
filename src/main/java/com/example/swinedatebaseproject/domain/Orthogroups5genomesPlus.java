@@ -1,11 +1,11 @@
 package com.example.swinedatebaseproject.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * 
@@ -17,7 +17,13 @@ public class Orthogroups5genomesPlus implements Serializable {
     /**
      * 
      */
-    @TableId(value = "Orthogroup")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 
+     */
+    @TableField(value = "Orthogroup")
     private String orthogroup;
 
     /**
@@ -95,7 +101,8 @@ public class Orthogroups5genomesPlus implements Serializable {
             return false;
         }
         Orthogroups5genomesPlus other = (Orthogroups5genomesPlus) that;
-        return (this.getOrthogroup() == null ? other.getOrthogroup() == null : this.getOrthogroup().equals(other.getOrthogroup()))
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getOrthogroup() == null ? other.getOrthogroup() == null : this.getOrthogroup().equals(other.getOrthogroup()))
             && (this.getA1AHau() == null ? other.getA1AHau() == null : this.getA1AHau().equals(other.getA1AHau()))
             && (this.getA1Hau() == null ? other.getA1Hau() == null : this.getA1Hau().equals(other.getA1Hau()))
             && (this.getA2Hau() == null ? other.getA2Hau() == null : this.getA2Hau().equals(other.getA2Hau()))
@@ -112,6 +119,7 @@ public class Orthogroups5genomesPlus implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrthogroup() == null) ? 0 : getOrthogroup().hashCode());
         result = prime * result + ((getA1AHau() == null) ? 0 : getA1AHau().hashCode());
         result = prime * result + ((getA1Hau() == null) ? 0 : getA1Hau().hashCode());
@@ -132,6 +140,7 @@ public class Orthogroups5genomesPlus implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", orthogroup=").append(orthogroup);
         sb.append(", a1AHau=").append(a1AHau);
         sb.append(", a1Hau=").append(a1Hau);
