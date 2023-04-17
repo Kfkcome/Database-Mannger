@@ -20,6 +20,9 @@ public class C1Hau implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @TableField(exist = false)
+    private String tableName = "c1_hau";
+
     /**
      * 
      */

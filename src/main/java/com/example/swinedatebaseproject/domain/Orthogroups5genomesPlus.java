@@ -29,7 +29,7 @@ public class Orthogroups5genomesPlus implements Serializable {
     /**
      * 
      */
-    @TableField(value = "A1_a_HAU")
+    @TableField(value = "A1_A_HAU")
     private String a1AHau;
 
     /**
@@ -83,8 +83,8 @@ public class Orthogroups5genomesPlus implements Serializable {
     /**
      * 
      */
-    @TableField(value = "K2_HUA")
-    private String k2Hua;
+    @TableField(value = "K2_HAU")
+    private String k2Hau;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -112,7 +112,7 @@ public class Orthogroups5genomesPlus implements Serializable {
             && (this.getE1Hau() == null ? other.getE1Hau() == null : this.getE1Hau().equals(other.getE1Hau()))
             && (this.getF1Hau() == null ? other.getF1Hau() == null : this.getF1Hau().equals(other.getF1Hau()))
             && (this.getG1Hau() == null ? other.getG1Hau() == null : this.getG1Hau().equals(other.getG1Hau()))
-            && (this.getK2Hua() == null ? other.getK2Hua() == null : this.getK2Hua().equals(other.getK2Hua()));
+            && (this.getK2Hau() == null ? other.getK2Hau() == null : this.getK2Hau().equals(other.getK2Hau()));
     }
 
     @Override
@@ -130,7 +130,7 @@ public class Orthogroups5genomesPlus implements Serializable {
         result = prime * result + ((getE1Hau() == null) ? 0 : getE1Hau().hashCode());
         result = prime * result + ((getF1Hau() == null) ? 0 : getF1Hau().hashCode());
         result = prime * result + ((getG1Hau() == null) ? 0 : getG1Hau().hashCode());
-        result = prime * result + ((getK2Hua() == null) ? 0 : getK2Hua().hashCode());
+        result = prime * result + ((getK2Hau() == null) ? 0 : getK2Hau().hashCode());
         return result;
     }
 
@@ -151,7 +151,7 @@ public class Orthogroups5genomesPlus implements Serializable {
         sb.append(", e1Hau=").append(e1Hau);
         sb.append(", f1Hau=").append(f1Hau);
         sb.append(", g1Hau=").append(g1Hau);
-        sb.append(", k2Hua=").append(k2Hua);
+        sb.append(", k2Hau=").append(k2Hau);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

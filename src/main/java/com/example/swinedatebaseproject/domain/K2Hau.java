@@ -20,6 +20,9 @@ public class K2Hau implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @TableField(exist = false)
+    private String tableName = "k2_hau";
+
     /**
      * 
      */

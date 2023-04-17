@@ -20,6 +20,9 @@ public class G1Hau implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @TableField(exist = false)
+    private String tableName = "g1_hau";
+
     /**
      * 
      */

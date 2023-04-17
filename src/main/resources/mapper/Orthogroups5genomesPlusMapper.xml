@@ -16,7 +16,7 @@
             <result property="e1Hau" column="E1_HAU" jdbcType="VARCHAR"/>
             <result property="f1Hau" column="F1_HAU" jdbcType="VARCHAR"/>
             <result property="g1Hau" column="G1_HAU" jdbcType="VARCHAR"/>
-            <result property="k2Hua" column="K2_HUA" jdbcType="VARCHAR"/>
+            <result property="k2Hua" column="K2_HAU" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
