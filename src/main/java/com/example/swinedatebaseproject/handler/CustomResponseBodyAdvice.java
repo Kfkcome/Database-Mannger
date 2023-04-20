@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 @ControllerAdvice
 public class CustomResponseBodyAdvice implements ResponseBodyAdvice {
+
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
         return false;
@@ -20,7 +21,6 @@ public class CustomResponseBodyAdvice implements ResponseBodyAdvice {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-
         return null;
     }
 }

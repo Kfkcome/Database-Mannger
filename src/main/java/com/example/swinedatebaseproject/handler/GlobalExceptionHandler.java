@@ -29,5 +29,4 @@ public class GlobalExceptionHandler {
         return ResponseResult.error(ResponseResultCode.ADD_FAIL.getCode(), e.getMessage());
     }
 
-
 }

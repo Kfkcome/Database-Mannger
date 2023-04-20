@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SpringDocConfig {
+
     @Bean
-    @SuppressWarnings("all")
-    public OpenAPI mallTinyOpenAPI() {
+    public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info().title("SwineSearchProject")
                         .description("棉花数据库后端协同系统")

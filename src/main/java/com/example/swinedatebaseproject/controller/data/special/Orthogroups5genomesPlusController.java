@@ -2,7 +2,6 @@ package com.example.swinedatebaseproject.controller.data.special;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.swinedatebaseproject.constant.MyBatisConstants;
 import com.example.swinedatebaseproject.controller.data.CommonController;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.Field;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -184,8 +182,8 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
         return ResponseResult.success(pageSize);
     }
 
-    @GetMapping("/search-orthogroup")
-    public ResponseResult searchOrthogroup(@RequestParam String value, @RequestParam Long current) {
+    @GetMapping("/search-orthogroup/v1")
+    public ResponseResult searchOrthogroupV1(@RequestParam String value, @RequestParam Long current) {
 
         ArrayList<Object> actualResult = new ArrayList<>();
 
@@ -210,6 +208,10 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
                     queryWrapper.like(columnName, value);
                     List<Orthogroups5genomesPlus> list = service.list(queryWrapper);
 
+                    if (list.size()==0) {
+                        continue;
+                    }
+
                     // 获取数据表列值
                     ArrayList<String> genes = new ArrayList<>();
                     for (Orthogroups5genomesPlus orthogroups5genomesPlus : list) {
@@ -223,18 +225,24 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
 
                     // 获取其他表纪录列表
                     QueryWrapper<Object> wrapper = new QueryWrapper<>();
-                    for (String gene : genes) {
-                        wrapper.like("attributes", gene).or();
-                    }
+                    wrapper.nested(objectQueryWrapper -> {
+                        for (int i = 0; i < genes.size(); i++) {
+                            if (i == genes.size() - 1) {
+                                objectQueryWrapper.like("attributes", genes.get(i).replace(" ",""));
+                            }else{
+                                objectQueryWrapper.like("attributes", genes.get(i).replace(" ","")).or();
+                            }
+                        }
+                    });
                     wrapper.eq("feature", "gene");
-                    Page<Object> page = new Page<>(current, Long.MAX_VALUE);
-                    List<Object> records = externalService.page(page, wrapper).getRecords();
+                    List<Object> records = externalService.list(wrapper);
                     cachedResult.addAll(records);
                 } catch (NoSuchFieldException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
             }
         }
+
 
         // 手动分页
         // 防止最后一页数据未满导致列表溢出的情况
@@ -246,6 +254,131 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
         }
 
         return ResponseResult.success(actualResult);
+    }
+
+    @GetMapping("/search-orthogroup/v2")
+    public ResponseResult searchOrthogroupV2(@RequestParam String value, @RequestParam Long current) {
+
+        ArrayList<Object> actualResult = new ArrayList<>();
+
+        if (System.currentTimeMillis() - startTime >= time || Objects.isNull(searchKey) || !searchKey.equals(value)) {
+            searchKey = value;
+            startTime = System.currentTimeMillis();
+            cachedResult.clear();
+            for (String fieldName : fieldNames) {
+                if ("id".equals(fieldName) || "serialVersionUID".equals(fieldName) || "orthogroup".equals(fieldName)) {
+                    continue;
+                }
+                try {
+                    // 获取数据表列名
+                    // thisClass Orthogroups5genomesPlus
+                    Field field = Orthogroups5genomesPlus.class.getDeclaredField(fieldName);
+                    field.setAccessible(true);
+                    TableField tableField = field.getAnnotation(TableField.class);
+                    String columnName = tableField.value();
+
+                    // 获取纪录列表
+                    QueryWrapper<Orthogroups5genomesPlus> queryWrapper = new QueryWrapper<>();
+                    queryWrapper.like(columnName, value);
+                    List<Orthogroups5genomesPlus> list = service.list(queryWrapper);
+
+                    if (list.size()==0) {
+                        continue;
+                    }else{
+                        for (Orthogroups5genomesPlus orthogroups5genomesPlus : list) {
+                            for (int i = 0; i < fieldNames.size(); i++) {
+
+                                if ("id".equals(fieldNames.get(i)) || "serialVersionUID".equals(fieldNames.get(i)) || "orthogroup".equals(fieldNames.get(i))) {
+                                    continue;
+                                }
+
+                                Field declaredField = Orthogroups5genomesPlus.class.getDeclaredField(fieldNames.get(i));
+                                declaredField.setAccessible(true);
+
+                                ArrayList<String> listGenes = new ArrayList<>() {
+                                    {
+                                        addAll(seperateGenes((String) declaredField.get(orthogroups5genomesPlus)));
+                                    }
+                                };
+
+                                QueryWrapper<Object> wrapper = new QueryWrapper<>();
+                                wrapper.nested(objectQueryWrapper -> {
+                                    for (int j = 0; j < listGenes.size(); j++) {
+                                        if (j == listGenes.size() - 1) {
+                                            objectQueryWrapper.like("attributes", listGenes.get(j));
+                                        }else{
+                                            objectQueryWrapper.like("attributes", listGenes.get(j)).or();
+                                        }
+                                    }
+                                });
+                                wrapper.eq("feature", "gene");
+
+                                // 获取其他实体Service
+                                String serviceName = fieldNames.get(i) + "Service";
+                                Field serviceField = Orthogroups5genomesPlusController.class.getDeclaredField(serviceName);
+                                IService externalService = (IService) serviceField.get(this);
+
+                                cachedResult.addAll(externalService.list(wrapper));
+                            }
+                        }
+                    }
+
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+
+        // 手动分页
+        // 防止最后一页数据未满导致列表溢出的情况
+        Long bound1 = (current - 1) * MyBatisConstants.PAGE_SIZE + MyBatisConstants.PAGE_SIZE;
+        Long bound2 = Long.valueOf(cachedResult.size());
+        Long bound = bound1 >= bound2 ? bound2 : bound1;
+        for (Long i = (current - 1) * MyBatisConstants.PAGE_SIZE; i < bound; i++) {
+            actualResult.add(cachedResult.get(Math.toIntExact(i)));
+        }
+
+        return ResponseResult.success(actualResult);
+    }
+
+    @GetMapping("/search-orthogroup")
+    public ResponseResult searchOrthogroup(@RequestParam String value) {
+        List<Orthogroups5genomesPlus> list = new ArrayList<>();
+
+        for (String fieldName : fieldNames) {
+            if ("id".equals(fieldName) || "serialVersionUID".equals(fieldName) || "orthogroup".equals(fieldName)) {
+                continue;
+            }
+            try {
+                // 获取数据表列名
+                // thisClass Orthogroups5genomesPlus
+                Field field = Orthogroups5genomesPlus.class.getDeclaredField(fieldName);
+                TableField tableField = field.getAnnotation(TableField.class);
+                String columnName = tableField.value();
+
+                // 获取纪录列表
+                QueryWrapper<Orthogroups5genomesPlus> queryWrapper = new QueryWrapper<>();
+                queryWrapper.like(columnName, value);
+                list.addAll(service.list(queryWrapper));
+
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return ResponseResult.success(list);
+    }
+
+    private List<String> seperateGenes(String genes) {
+        String[] strings = genes.split(",");
+        return new ArrayList<>() {
+            {
+                for (String string : strings) {
+                    add(string.replace(" ", ""));
+                }
+            }
+        };
     }
 
 }

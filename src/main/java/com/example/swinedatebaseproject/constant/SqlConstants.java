@@ -6,8 +6,6 @@ package com.example.swinedatebaseproject.constant;
  */
 public class SqlConstants {
 
-
     public static final String CREATE_TABLE_PREFIX = "create table ";
-
 
 }

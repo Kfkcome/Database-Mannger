@@ -17,6 +17,7 @@ spring:
         enabled: true
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     dynamic:
+      p6spy: true
       primary: private
       strict: false
       # 数据源懒加载
@@ -58,11 +59,13 @@ spring:
 #          username: root
 #          password: root
 springdoc:
-  packages-to-scan: com.example.swinedatebaseproject.controller
   swagger-ui:
     enabled: true
+    path: /docs-ui
   api-docs:
-    path: /v3/api-docs
     enabled: true
+    path: /docs
+  packages-to-scan: com.example.swinedatebaseproject.controller
+
 server:
   port: 8080

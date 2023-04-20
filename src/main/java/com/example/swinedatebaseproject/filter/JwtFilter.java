@@ -13,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -24,13 +26,25 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+    private static final ArrayList<String> SAFE_PATH_LIST = new ArrayList<>() {
+        {
+            add(USERNAME);
+            add(LOGIN_PREFIX);
+            add(REGISTER_PREFIX);
+            add(UI_PREFIX);
+            add("/docs");
+            add("/docs-ui");
+        }
+    };
+
     private static final String USERNAME = "userName";
+
 
     private static final String LOGIN_PREFIX = "/login";
 
     private static final String REGISTER_PREFIX = "/register";
 
-    private static final String DOC_PREFIX = "/swagger-ui";
+    private static final String UI_PREFIX = "/swagger-ui";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -43,7 +57,8 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String requestURI = request.getRequestURI();
-        if (requestURI.contains(LOGIN_PREFIX) || requestURI.contains(REGISTER_PREFIX) || requestURI.contains(DOC_PREFIX) ) {
+
+        if (checkUriIsSafePath(requestURI)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -73,5 +88,14 @@ public class JwtFilter extends OncePerRequestFilter {
             String value = OBJECT_MAPPER.writeValueAsString(responseResult);
             WebUtils.renderString(response, value);
         }
+    }
+
+    private boolean checkUriIsSafePath(String uri) {
+        for (String safePath : SAFE_PATH_LIST) {
+            if (uri.contains(safePath)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
