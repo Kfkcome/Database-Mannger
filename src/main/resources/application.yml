@@ -59,14 +59,14 @@ spring:
 #          username: root
 #          password: root
 springdoc:
-  swagger-ui:
-    enabled: true
-    path: /docs-ui
   api-docs:
     enabled: true
     path: /docs
   packages-to-scan: com.example.swinedatebaseproject.controller
   paths-to-match: /orthogroups5genomesPlus/**
+  swagger-ui:
+    enabled: true
+    path: /docs-ui
 
 server:
-  port: 10000
+  port: 8080

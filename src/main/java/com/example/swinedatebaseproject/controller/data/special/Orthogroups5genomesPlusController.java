@@ -182,6 +182,34 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
         return ResponseResult.success(pageSize);
     }
 
+    @GetMapping("/search-orthogroup")
+    public ResponseResult searchOrthogroup(@RequestParam String value) {
+        List<Orthogroups5genomesPlus> list = new ArrayList<>();
+
+        for (String fieldName : fieldNames) {
+            if ("id".equals(fieldName) || "serialVersionUID".equals(fieldName) || "orthogroup".equals(fieldName)) {
+                continue;
+            }
+            try {
+                // 获取数据表列名
+                // thisClass Orthogroups5genomesPlus
+                Field field = Orthogroups5genomesPlus.class.getDeclaredField(fieldName);
+                TableField tableField = field.getAnnotation(TableField.class);
+                String columnName = tableField.value();
+
+                // 获取纪录列表
+                QueryWrapper<Orthogroups5genomesPlus> queryWrapper = new QueryWrapper<>();
+                queryWrapper.like(columnName, value);
+                list.addAll(service.list(queryWrapper));
+
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return ResponseResult.success(list);
+    }
+
     @GetMapping("/search-orthogroup/v1")
     public ResponseResult searchOrthogroupV1(@RequestParam String value, @RequestParam Long current) {
 
@@ -383,11 +411,19 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
 
                                 ArrayList<String> listGenes = new ArrayList<>() {
                                     {
-                                        addAll(seperateGenes((String) declaredField.get(orthogroups5genomesPlus)));
+                                        List<String> genes = seperateGenes((String) declaredField.get(orthogroups5genomesPlus));
+                                        if (Objects.nonNull(genes) && genes.size() != 0) {
+                                            addAll(genes);
+                                        }
                                     }
                                 };
 
+                                if (listGenes.size() == 0) {
+                                    continue;
+                                }
+
                                 QueryWrapper<Object> wrapper = new QueryWrapper<>();
+                                wrapper.eq("feature", "gene");
                                 wrapper.nested(objectQueryWrapper -> {
                                     for (int j = 0; j < listGenes.size(); j++) {
                                         if (j == listGenes.size() - 1) {
@@ -397,7 +433,6 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
                                         }
                                     }
                                 });
-                                wrapper.eq("feature", "gene");
 
                                 // 获取其他实体Service
                                 String serviceName = fieldNames.get(i) + "Service";
@@ -418,35 +453,12 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
         return ResponseResult.success(cachedResult);
     }
 
-    @GetMapping("/search-orthogroup")
-    public ResponseResult searchOrthogroup(@RequestParam String value) {
-        List<Orthogroups5genomesPlus> list = new ArrayList<>();
 
-        for (String fieldName : fieldNames) {
-            if ("id".equals(fieldName) || "serialVersionUID".equals(fieldName) || "orthogroup".equals(fieldName)) {
-                continue;
-            }
-            try {
-                // 获取数据表列名
-                // thisClass Orthogroups5genomesPlus
-                Field field = Orthogroups5genomesPlus.class.getDeclaredField(fieldName);
-                TableField tableField = field.getAnnotation(TableField.class);
-                String columnName = tableField.value();
-
-                // 获取纪录列表
-                QueryWrapper<Orthogroups5genomesPlus> queryWrapper = new QueryWrapper<>();
-                queryWrapper.like(columnName, value);
-                list.addAll(service.list(queryWrapper));
-
-            } catch (NoSuchFieldException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        return ResponseResult.success(list);
-    }
 
     private List<String> seperateGenes(String genes) {
+        if (Objects.isNull(genes) || "".equals(genes)) {
+            return null;
+        }
         String[] strings = genes.split(",");
         return new ArrayList<>() {
             {
