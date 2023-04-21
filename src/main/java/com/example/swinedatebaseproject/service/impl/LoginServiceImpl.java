@@ -27,7 +27,6 @@ public class LoginServiceImpl implements com.example.swinedatebaseproject.servic
         for (CommonUser commonUser : commonUsers) {
             UserCache.COMMON_USERS.add(commonUser.getName());
         }
-
     }
 
     @Override

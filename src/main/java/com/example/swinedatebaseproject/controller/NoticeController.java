@@ -23,7 +23,6 @@ public class NoticeController {
     @Autowired
     NoticeService noticeService;
 
-
     @PostMapping("/add")
     public void addNotice(@RequestBody Notice notice) {
         if (Objects.isNull(notice.getTitle()) || "".equals(notice.getTitle())){
@@ -40,12 +39,10 @@ public class NoticeController {
         }
         noticeService.save(notice);
     }
-
     @DeleteMapping("/delete/{id}")
     public void deleteNotice(@PathVariable("id") Integer id) {
         noticeService.removeById(id);
     }
-
     @GetMapping("/get")
     public ResponseResult getNotices() {
         List<Notice> list = noticeService.list();

@@ -8,7 +8,7 @@ import com.example.swinedatebaseproject.domain.CommonUserDto;
  * @Date 2022/11/14
  */
 public class CommonUserConverter {
-    public static CommonUserDto ConvertCommonUserDtoFromCommonUser(CommonUser commonUser) {
+    public static CommonUserDto convertCommonUserDtoFromCommonUser(CommonUser commonUser) {
         return new CommonUserDto(commonUser.getName(), commonUser.getMail());
     }
 }

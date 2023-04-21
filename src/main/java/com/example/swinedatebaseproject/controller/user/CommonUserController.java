@@ -30,7 +30,7 @@ public class CommonUserController {
     @GetMapping("/all")
     public ResponseResult getAllUsers() {
         List<CommonUser> commonUsers = commonUserService.list();
-        List<CommonUserDto> commonUserDtos = commonUsers.stream().map(CommonUserConverter::ConvertCommonUserDtoFromCommonUser).toList();
+        List<CommonUserDto> commonUserDtos = commonUsers.stream().map(CommonUserConverter::convertCommonUserDtoFromCommonUser).toList();
         return Objects.requireNonNull(ResponseResult.success(ResponseResultCode.SUCCESS.getCode(), ResponseResultCode.SUCCESS.getMessage(), commonUserDtos));
     }
 
@@ -38,7 +38,7 @@ public class CommonUserController {
     public ResponseResult getCdsBasePage(@PathVariable Integer current) {
         Page<CommonUser> commonUserPage = new Page<>(current, MyBatisConstants.PAGE_SIZE);
         List<CommonUser> commonUsers = commonUserService.page(commonUserPage).getRecords();
-        List<CommonUserDto> commonUserDtos = commonUsers.stream().map(CommonUserConverter::ConvertCommonUserDtoFromCommonUser).toList();
+        List<CommonUserDto> commonUserDtos = commonUsers.stream().map(CommonUserConverter::convertCommonUserDtoFromCommonUser).toList();
         return ResponseResultUtils.getResponseResult(CommonUserDto.class, commonUserDtos);
     }
 

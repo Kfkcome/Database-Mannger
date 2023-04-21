@@ -1,4 +1,4 @@
-package com.example.swinedatebaseproject.controller.data.impl;
+package com.example.swinedatebaseproject.controller.data.example;
 
 import com.example.swinedatebaseproject.controller.data.CommonController;
 import com.example.swinedatebaseproject.response.ResponseResult;

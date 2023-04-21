@@ -68,4 +68,4 @@ springdoc:
   packages-to-scan: com.example.swinedatebaseproject.controller
 
 server:
-  port: 8080
+  port: 10000
