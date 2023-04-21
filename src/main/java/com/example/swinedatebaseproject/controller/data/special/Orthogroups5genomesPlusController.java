@@ -342,6 +342,82 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
         return ResponseResult.success(actualResult);
     }
 
+    @GetMapping("/search-orthogroup/v3")
+    public ResponseResult searchOrthogroupV3(@RequestParam String value) {
+
+        ArrayList<Object> actualResult = new ArrayList<>();
+
+        if (System.currentTimeMillis() - startTime >= time || Objects.isNull(searchKey) || !searchKey.equals(value)) {
+            searchKey = value;
+            startTime = System.currentTimeMillis();
+            cachedResult.clear();
+            for (String fieldName : fieldNames) {
+                if ("id".equals(fieldName) || "serialVersionUID".equals(fieldName) || "orthogroup".equals(fieldName)) {
+                    continue;
+                }
+                try {
+                    // 获取数据表列名
+                    // thisClass Orthogroups5genomesPlus
+                    Field field = Orthogroups5genomesPlus.class.getDeclaredField(fieldName);
+                    field.setAccessible(true);
+                    TableField tableField = field.getAnnotation(TableField.class);
+                    String columnName = tableField.value();
+
+                    // 获取纪录列表
+                    QueryWrapper<Orthogroups5genomesPlus> queryWrapper = new QueryWrapper<>();
+                    queryWrapper.like(columnName, value);
+                    List<Orthogroups5genomesPlus> list = service.list(queryWrapper);
+
+                    if (list.size()==0) {
+                        continue;
+                    }else{
+                        for (Orthogroups5genomesPlus orthogroups5genomesPlus : list) {
+                            for (int i = 0; i < fieldNames.size(); i++) {
+
+                                if ("id".equals(fieldNames.get(i)) || "serialVersionUID".equals(fieldNames.get(i)) || "orthogroup".equals(fieldNames.get(i))) {
+                                    continue;
+                                }
+
+                                Field declaredField = Orthogroups5genomesPlus.class.getDeclaredField(fieldNames.get(i));
+                                declaredField.setAccessible(true);
+
+                                ArrayList<String> listGenes = new ArrayList<>() {
+                                    {
+                                        addAll(seperateGenes((String) declaredField.get(orthogroups5genomesPlus)));
+                                    }
+                                };
+
+                                QueryWrapper<Object> wrapper = new QueryWrapper<>();
+                                wrapper.nested(objectQueryWrapper -> {
+                                    for (int j = 0; j < listGenes.size(); j++) {
+                                        if (j == listGenes.size() - 1) {
+                                            objectQueryWrapper.like("attributes", listGenes.get(j));
+                                        }else{
+                                            objectQueryWrapper.like("attributes", listGenes.get(j)).or();
+                                        }
+                                    }
+                                });
+                                wrapper.eq("feature", "gene");
+
+                                // 获取其他实体Service
+                                String serviceName = fieldNames.get(i) + "Service";
+                                Field serviceField = Orthogroups5genomesPlusController.class.getDeclaredField(serviceName);
+                                IService externalService = (IService) serviceField.get(this);
+
+                                cachedResult.addAll(externalService.list(wrapper));
+                            }
+                        }
+                    }
+
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        return ResponseResult.success(cachedResult);
+    }
+
     @GetMapping("/search-orthogroup")
     public ResponseResult searchOrthogroup(@RequestParam String value) {
         List<Orthogroups5genomesPlus> list = new ArrayList<>();

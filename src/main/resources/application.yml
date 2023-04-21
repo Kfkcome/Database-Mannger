@@ -66,6 +66,7 @@ springdoc:
     enabled: true
     path: /docs
   packages-to-scan: com.example.swinedatebaseproject.controller
+  paths-to-match: /orthogroups5genomesPlus/**
 
 server:
   port: 10000
