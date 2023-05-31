@@ -3,21 +3,24 @@ package com.example.swinedatebaseproject.controller.data.special;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.swinedatebaseproject.constant.DomainUnit;
 import com.example.swinedatebaseproject.constant.MyBatisConstants;
 import com.example.swinedatebaseproject.controller.data.CommonController;
 import com.example.swinedatebaseproject.domain.*;
 import com.example.swinedatebaseproject.response.ResponseResult;
+import com.example.swinedatebaseproject.response.ResponseResultCode;
 import com.example.swinedatebaseproject.service.*;
+import com.example.swinedatebaseproject.util.ResponseResultUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.poifs.crypt.HashAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @作者 DD
@@ -59,6 +62,9 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
 
     @Autowired
     K2HauService k2HauService;
+
+    @Autowired
+    SnpInfoService snpInfoService;
 
     /**
      * 每隔time时间更新缓存结果
@@ -451,6 +457,115 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
         }
 
         return ResponseResult.success(cachedResult);
+    }
+
+    private Map<String, Class> STRING_CLASS_MAP = new HashMap<>() {
+        {
+            fieldNames.stream()
+                    .filter(fieldName -> !("id".equals(fieldName) || "serialVersionUID".equals(fieldName) || "orthogroup".equals(fieldName)))
+                    .forEach(fieldName -> {
+                        String className = StringUtils.capitalize(fieldName);
+                        Class<?> aClass;
+                        try {
+                            aClass = Class.forName("com.example.swinedatebaseproject.domain." + className);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                        put(fieldName, aClass);
+                    });
+        }
+    };
+
+    @GetMapping("/search-orthogroup/v4")
+    public ResponseResult searchOrthogroupV4(@RequestParam String value) {
+
+        for (String fieldName : fieldNames) {
+            if ("id".equals(fieldName) || "serialVersionUID".equals(fieldName) || "orthogroup".equals(fieldName)) {
+                continue;
+            }
+            try {
+                // 获取数据表列名
+                // thisClass Orthogroups5genomesPlus
+                Field field = Orthogroups5genomesPlus.class.getDeclaredField(fieldName);
+                field.setAccessible(true);
+                TableField tableField = field.getAnnotation(TableField.class);
+                String columnName = tableField.value();
+
+                // 获取纪录列表
+                QueryWrapper<Orthogroups5genomesPlus> queryWrapper = new QueryWrapper<>();
+                queryWrapper.like(columnName, value);
+                List<Orthogroups5genomesPlus> list = service.list(queryWrapper);
+
+                if (list.size()==0) {
+                    continue;
+                }else{
+                    for (Orthogroups5genomesPlus orthogroups5genomesPlus : list) {
+                        for (int i = 0; i < fieldNames.size(); i++) {
+
+                            if ("id".equals(fieldNames.get(i)) || "serialVersionUID".equals(fieldNames.get(i)) || "orthogroup".equals(fieldNames.get(i))) {
+                                continue;
+                            }
+                            if (!fieldName.equals(fieldNames.get(i))) {
+                                continue;
+                            }
+
+                            Field declaredField = Orthogroups5genomesPlus.class.getDeclaredField(fieldNames.get(i));
+                            declaredField.setAccessible(true);
+
+                            ArrayList<String> listGenes = new ArrayList<>() {
+                                {
+                                    List<String> genes = seperateGenes((String) declaredField.get(orthogroups5genomesPlus));
+                                    if (Objects.nonNull(genes) && genes.size() != 0) {
+                                        add(genes.stream().filter(s -> s.contains(value)).findFirst().get());
+                                    }
+                                }
+                            };
+
+                            QueryWrapper<Object> wrapper = new QueryWrapper<>();
+                            wrapper.in("feature", "gene");
+                            wrapper.nested(objectQueryWrapper -> {
+                                for (int j = 0; j < listGenes.size(); j++) {
+                                    if (j == listGenes.size() - 1) {
+                                        objectQueryWrapper.like("attributes", listGenes.get(j));
+                                    }else{
+                                        objectQueryWrapper.like("attributes", listGenes.get(j)).or();
+                                    }
+                                }
+                            });
+
+                            // 获取其他实体Service
+                            String serviceName = fieldNames.get(i) + "Service";
+                            Field serviceField = Orthogroups5genomesPlusController.class.getDeclaredField(serviceName);
+
+                            // 获取目标表一行数据
+                            IService externalService = (IService) serviceField.get(this);
+                            Object gene = externalService.list(wrapper).stream().findFirst().get();
+                            if (Objects.isNull(gene)) {
+                                return ResponseResult.error(ResponseResultCode.DATA_NOT_FOUND.getCode(), ResponseResultCode.DATA_NOT_FOUND.getMessage());
+                            }
+
+                            // 获取基因的start值和end值
+                            Class aClass = STRING_CLASS_MAP.get(fieldName);
+                            Field startField = aClass.getDeclaredField("start");
+                            Field endField = aClass.getDeclaredField("end");
+                            Integer start = Integer.valueOf((String) startField.get(gene));
+                            Integer end = Integer.valueOf((String) endField.get(gene));
+
+                            QueryWrapper<SnpInfo> snpInfoQueryWrapper = new QueryWrapper<>();
+                            snpInfoQueryWrapper.lt("pos", end);
+                            snpInfoQueryWrapper.gt("pos", start);
+                            List<SnpInfo> snpInfoList = snpInfoService.list(snpInfoQueryWrapper);
+
+                            return ResponseResult.success(snpInfoList);
+                        }
+                    }
+                }
+
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return ResponseResult.error(ResponseResultCode.DATA_NOT_FOUND.getCode(), ResponseResultCode.DATA_NOT_FOUND.getMessage());
     }
 
 

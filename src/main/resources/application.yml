@@ -50,9 +50,9 @@ spring:
       datasource:
         private:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://gz-cynosdbmysql-grp-lqdbgset.sql.tencentcdb.com:23453/cotton
+          url: jdbc:mysql://localhost:3306/cotton
           username: root
-          password: Du061224
+          password: 111
 #        public:
 #          driver-class-name: com.mysql.cj.jdbc.Driver
 #          url: jdbc:mysql://122.205.95.110:3366/cotton
@@ -67,6 +67,6 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /docs-ui
-
 server:
   port: 8080
+
