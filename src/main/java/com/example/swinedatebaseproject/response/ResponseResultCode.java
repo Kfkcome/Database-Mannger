@@ -21,13 +21,15 @@ public enum ResponseResultCode {
     DATA_TYPE_ERROR("A0008", "数据类型错误"),
     UPDATE_DATA_FAIL("A0009", "数据更新失败"),
 
+
     LOGIN_SUCCESS("B0001", "登录成功"),
     LOGIN_FAIL("B0002", "登录失败"),
     REGISTER_SUCCESS("B0003", "注册成功"),
     REGISTER_FAIL("B0004", "注册失败"),
     NOT_REGISTER("B0005", "未注册"),
     NOT_LOGIN("B0006", "未登录"),
-    AUTHEMTICATION_FAIL("B0007", "认证失败，请重新登录");
+    AUTHEMTICATION_FAIL("B0007", "认证失败，请重新登录"),
+    ERROR("B0008","请求失败");
 
 
     private final String code;

@@ -3,24 +3,23 @@ package com.example.swinedatebaseproject.controller.data.special;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.swinedatebaseproject.constant.DomainUnit;
 import com.example.swinedatebaseproject.constant.MyBatisConstants;
 import com.example.swinedatebaseproject.controller.data.CommonController;
 import com.example.swinedatebaseproject.domain.*;
 import com.example.swinedatebaseproject.response.ResponseResult;
 import com.example.swinedatebaseproject.response.ResponseResultCode;
 import com.example.swinedatebaseproject.service.*;
-import com.example.swinedatebaseproject.util.ResponseResultUtils;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.poifs.crypt.HashAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * @作者 DD
@@ -459,6 +458,10 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
         return ResponseResult.success(cachedResult);
     }
 
+
+    /**
+     * key->fieldName
+     */
     private Map<String, Class> STRING_CLASS_MAP = new HashMap<>() {
         {
             fieldNames.stream()
@@ -536,9 +539,9 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
                             // 获取其他实体Service
                             String serviceName = fieldNames.get(i) + "Service";
                             Field serviceField = Orthogroups5genomesPlusController.class.getDeclaredField(serviceName);
+                            IService externalService = (IService) serviceField.get(this);
 
                             // 获取目标表一行数据
-                            IService externalService = (IService) serviceField.get(this);
                             Object gene = externalService.list(wrapper).stream().findFirst().get();
                             if (Objects.isNull(gene)) {
                                 return ResponseResult.error(ResponseResultCode.DATA_NOT_FOUND.getCode(), ResponseResultCode.DATA_NOT_FOUND.getMessage());
@@ -568,7 +571,98 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
         return ResponseResult.error(ResponseResultCode.DATA_NOT_FOUND.getCode(), ResponseResultCode.DATA_NOT_FOUND.getMessage());
     }
 
+    @GetMapping("/search-spn/v1")
+    public ResponseResult searchSpnInfoV1(@RequestParam String value) {
 
+        for (String fieldName : fieldNames) {
+            if ("id".equals(fieldName) || "serialVersionUID".equals(fieldName) || "orthogroup".equals(fieldName)) {
+                continue;
+            }
+            try {
+                // 获取数据表列名
+                // thisClass Orthogroups5genomesPlus
+                Field field = Orthogroups5genomesPlus.class.getDeclaredField(fieldName);
+                field.setAccessible(true);
+                TableField tableField = field.getAnnotation(TableField.class);
+                String columnName = tableField.value();
+
+                // 获取纪录列表
+                QueryWrapper<Orthogroups5genomesPlus> queryWrapper = new QueryWrapper<>();
+                queryWrapper.like(columnName, value);
+                List<Orthogroups5genomesPlus> list = service.list(queryWrapper);
+
+                if (list.size()==0) {
+                    continue;
+                }else{
+                    for (Orthogroups5genomesPlus orthogroups5genomesPlus : list) {
+                        for (int i = 0; i < fieldNames.size(); i++) {
+
+                            if ("id".equals(fieldNames.get(i)) || "serialVersionUID".equals(fieldNames.get(i)) || "orthogroup".equals(fieldNames.get(i))) {
+                                continue;
+                            }
+                            if (!fieldName.equals(fieldNames.get(i))) {
+                                continue;
+                            }
+
+                            Field declaredField = Orthogroups5genomesPlus.class.getDeclaredField(fieldNames.get(i));
+                            declaredField.setAccessible(true);
+
+                            ArrayList<String> listGenes = new ArrayList<>() {
+                                {
+                                    List<String> genes = seperateGenes((String) declaredField.get(orthogroups5genomesPlus));
+                                    if (Objects.nonNull(genes) && genes.size() != 0) {
+                                        add(genes.stream().filter(s -> s.contains(value)).findFirst().get());
+                                    }
+                                }
+                            };
+
+                            QueryWrapper<Object> wrapper = new QueryWrapper<>();
+                            wrapper.in("feature", "gene","EXON","three_prime_UTR","five_prime_UTR");
+                            wrapper.nested(objectQueryWrapper -> {
+                                for (int j = 0; j < listGenes.size(); j++) {
+                                    if (j == listGenes.size() - 1) {
+                                        objectQueryWrapper.like("attributes", listGenes.get(j));
+                                    }else{
+                                        objectQueryWrapper.like("attributes", listGenes.get(j)).or();
+                                    }
+                                }
+                            });
+
+                            // 获取其他实体Service
+                            String serviceName = fieldNames.get(i) + "Service";
+                            Field serviceField = Orthogroups5genomesPlusController.class.getDeclaredField(serviceName);
+
+                            // 获取目标表一行数据
+                            IService externalService = (IService) serviceField.get(this);
+                            List<Object> genes = externalService.list(wrapper).stream().toList();
+                            if (Objects.isNull(genes) || genes.size()==0) {
+                                return ResponseResult.error(ResponseResultCode.DATA_NOT_FOUND.getCode(), ResponseResultCode.DATA_NOT_FOUND.getMessage());
+                            }
+
+                            // 获取基因的start值和end值
+                            Class aClass = STRING_CLASS_MAP.get(fieldName);
+                            Field startField = aClass.getDeclaredField("start");
+                            Field endField = aClass.getDeclaredField("end");
+                            List<SnpInfo> snpInfoList = new ArrayList<>();
+                            for (Object gene : genes) {
+                                Integer start = Integer.valueOf((String) startField.get(gene));
+                                Integer end = Integer.valueOf((String) endField.get(gene));
+                                QueryWrapper<SnpInfo> snpInfoQueryWrapper = new QueryWrapper<>();
+                                snpInfoQueryWrapper.lt("pos", end);
+                                snpInfoQueryWrapper.gt("pos", start);
+                                snpInfoList.addAll(snpInfoService.list(snpInfoQueryWrapper));
+                            }
+                            return ResponseResult.success(snpInfoList);
+                        }
+                    }
+                }
+
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return ResponseResult.error(ResponseResultCode.DATA_NOT_FOUND.getCode(), ResponseResultCode.DATA_NOT_FOUND.getMessage());
+    }
 
     private List<String> seperateGenes(String genes) {
         if (Objects.isNull(genes) || "".equals(genes)) {
@@ -582,6 +676,80 @@ public class Orthogroups5genomesPlusController extends CommonController<Orthogro
                 }
             }
         };
+    }
+
+    private List<String> geneFeaturePrefixList = new ArrayList<>();
+
+    /**
+     * geneFeaturePrefix
+     */
+    private Map<String, GeneEntry> geneInfo = new HashMap<>();
+
+    @PostConstruct
+    public void init() {
+        geneListInit();
+        geneInfoInit();
+    }
+
+    private void geneListInit() {
+        geneFeaturePrefixList.add("");
+    }
+
+    private void geneInfoInit() {
+
+        Class<Orthogroups5genomesPlus> orthogroups5genomesPlusClass = Orthogroups5genomesPlus.class;
+        for (int i = 0; i < fieldNames.size(); i++) {
+            String geneFeaturePrefix = geneFeaturePrefixList.get(i);
+            try {
+                Field field = orthogroups5genomesPlusClass.getDeclaredField(fieldNames.get(i));
+
+                TableField tableField = field.getAnnotation(TableField.class);
+                String geneColumnNameInMainTable = tableField.value();
+
+                String serviceName = fieldNames.get(i) + "Service";
+                Field serviceField = this.getClass().getDeclaredField(serviceName);
+                IService geneService = (IService) serviceField.get(this);
+
+                String geneClassName = StringUtils.capitalize(fieldNames.get(i));
+                Class<?> geneClass = Class.forName("com.example.swinedatebaseproject.domain." + geneClassName);
+
+                GeneEntry geneEntry = new GeneEntry(geneColumnNameInMainTable, geneService, geneClass);
+
+                geneInfo.put(geneFeaturePrefixList.get(i), geneEntry);
+            } catch (NoSuchFieldException | IllegalAccessException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    private void geneInfoManualOperation() {
+
+    }
+
+    @GetMapping("/search-spn/v2")
+    public Object searchSpnInfoV2(@RequestParam String value) {
+        String geneFeaturePrefix = geneInfo.keySet().stream().filter(key -> value.contains(key)).findFirst().get();
+        IService geneService = geneInfo.get(geneFeaturePrefix).getGeneService();
+
+        QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("feature", "gene", "EXON", "three_prime_UTR", "five_prime_UTR");
+        queryWrapper.like("attributes", value);
+        List list = geneService.list(queryWrapper);
+
+        if (Objects.nonNull(list) || list.size() != 0) {
+            return list;
+        } else {
+            return ResponseResultCode.DATA_NOT_FOUND;
+        }
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class GeneEntry {
+        String geneColumnNameInMainTable;
+        IService geneService;
+        Class geneClass;
     }
 
 }

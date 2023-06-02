@@ -32,7 +32,13 @@ public class ResponseResult {
         return new ResponseResult(code,message,data);
     }
 
+
     public static ResponseResult error(String code,String message) {
         return new ResponseResult(code,message,null);
     }
+
+    public static ResponseResult error(ResponseResultCode responseResultCode) {
+        return error(responseResultCode.getCode(), responseResultCode.getMessage());
+    }
+
 }
