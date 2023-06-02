@@ -1,6 +1,5 @@
 package com.example.swinedatebaseproject.response;
 
-import lombok.AllArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.MediaType;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * @作者 DD
@@ -24,9 +24,8 @@ public class GlobalSuccessResponseHandler implements ResponseBodyAdvice<Object> 
         Class<?> parameterType = returnType.getParameterType();
         Class<?> declaringClass = returnType.getDeclaringClass();
         Method method = returnType.getMethod();
-        return !(parameterType.equals(ResponseResult.class) || parameterType.equals(ResponseResultCode.class) ||
-                AnnotatedElementUtils.hasAnnotation(declaringClass, NoResponseResult.class) || AnnotatedElementUtils.hasAnnotation(method, NoResponseResult.class)
-        );
+        return !(Objects.isNull(method) || parameterType.equals(ResponseResult.class) || parameterType.equals(ResponseResultCode.class) ||
+                AnnotatedElementUtils.hasAnnotation(declaringClass, NoResponseResult.class) || AnnotatedElementUtils.hasAnnotation(method, NoResponseResult.class));
     }
 
     @Override
