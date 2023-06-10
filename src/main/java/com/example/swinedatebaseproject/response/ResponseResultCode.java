@@ -11,6 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @SuppressWarnings("all")
 public enum ResponseResultCode {
+
     SUCCESS("A0001", "请求成功"),
     DATA_NOT_FOUND("A0002", "目标数据未找到"),
     DELETE_SUCCESS("A0003", "数据删除成功"),
@@ -30,7 +31,6 @@ public enum ResponseResultCode {
     NOT_LOGIN("B0006", "未登录"),
     AUTHEMTICATION_FAIL("B0007", "认证失败，请重新登录"),
     ERROR("B0008","请求失败");
-
 
     private final String code;
     private final String message;
