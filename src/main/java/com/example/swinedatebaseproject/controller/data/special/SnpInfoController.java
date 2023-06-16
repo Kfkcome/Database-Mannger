@@ -60,7 +60,7 @@ public class SnpInfoController {
 
         HashMap<String, Object> responseResult = new HashMap<>();
 
-        String geneFeaturePrefix = geneInfo.keySet().stream().filter(key -> value.contains(key)).findFirst().get();
+        String geneFeaturePrefix = geneInfo.keySet().stream().filter(key -> value.contains(key)).findFirst().orElseGet(()->null);
         if (Objects.isNull(geneFeaturePrefix) || "".equals(geneFeaturePrefix)) {
             return ResponseResultCode.DATA_NOT_FOUND;
         }
