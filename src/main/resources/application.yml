@@ -50,9 +50,9 @@ spring:
       datasource:
         private:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/cotton
+          url: jdbc:mysql://162.14.75.32:3306/cotton
           username: root
-          password: 111
+          password: dd20021120
 #        public:
 #          driver-class-name: com.mysql.cj.jdbc.Driver
 #          url: jdbc:mysql://122.205.95.110:3366/cotton

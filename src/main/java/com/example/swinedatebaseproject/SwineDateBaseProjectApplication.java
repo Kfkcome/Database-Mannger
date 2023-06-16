@@ -13,6 +13,4 @@ public class SwineDateBaseProjectApplication {
         SpringApplication.run(SwineDateBaseProjectApplication.class, args);
     }
 
-
-
 }

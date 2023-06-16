@@ -71,7 +71,7 @@ public class SnpInfo implements Serializable {
     /**
      * 
      */
-    @TableField(value = "Z-score")
+    @TableField(value = "z_score")
     private String zScore;
 
     /**
