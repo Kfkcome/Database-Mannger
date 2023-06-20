@@ -34,6 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
             add(UI_PREFIX);
             add("/docs");
             add("/docs-ui");
+            add("/druid/index.html");
         }
     };
 
@@ -46,9 +47,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private static final String UI_PREFIX = "/swagger-ui";
 
+    @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
 
         String secret = request.getHeader("secret");
         if (Objects.nonNull(secret) && "secret".equals(secret)) {
@@ -57,7 +58,6 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String requestURI = request.getRequestURI();
-
         if (checkUriIsSafePath(requestURI)) {
             filterChain.doFilter(request, response);
             return;

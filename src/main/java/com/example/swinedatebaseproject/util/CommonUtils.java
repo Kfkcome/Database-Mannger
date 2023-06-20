@@ -3,6 +3,11 @@ package com.example.swinedatebaseproject.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PipedReader;
+import java.io.PipedWriter;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.lang.reflect.Array;
 import java.net.Inet4Address;
 import java.nio.file.FileSystem;
@@ -30,10 +35,20 @@ public class CommonUtils {
 
     public static void main(String[] args) throws InterruptedException {
 
-
-        int[] ints = (int[]) Array.newInstance(int.class, 1);
-        int i = (int) Array.get(ints, 0);
-        System.out.println(i);
     }
+
+    private Object result;
+
+    public synchronized Object getResult(long mills) throws InterruptedException {
+        long future = System.currentTimeMillis() + mills;
+        long remaing = mills;
+        while (result == null && remaing > 0) {
+            wait(remaing);
+            remaing = future - System.currentTimeMillis();
+        }
+        return result;
+    }
+
+
 
 }

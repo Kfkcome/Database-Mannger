@@ -30,7 +30,8 @@ public enum ResponseResultCode {
     NOT_REGISTER("B0005", "未注册"),
     NOT_LOGIN("B0006", "未登录"),
     AUTHEMTICATION_FAIL("B0007", "认证失败，请重新登录"),
-    ERROR("B0008","请求失败");
+    ERROR("B0008","请求失败"),
+    ERROR_CONDITION("B0009", "错误条件");
 
     private final String code;
     private final String message;

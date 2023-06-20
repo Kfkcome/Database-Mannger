@@ -1,63 +1,41 @@
+server:
+  port: 8080
 spring:
-  #    active: @profile.environment@
   application:
     name: swine-search-project
   servlet:
     multipart:
-      # 文件最大大小
       max-file-size: 10000000000
+  mvc:
+    servlet:
+      load-on-startup: 1
   datasource:
-    druid:
-      stat-view-servlet:
-        enabled: true
-        loginUsername: admin
-        loginPassword: 123
-        allow: "*"
-      web-stat-filter:
-        enabled: true
-      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-    dynamic:
+   dynamic:
       p6spy: true
       primary: private
       strict: false
-      # 数据源懒加载
       lazy: true
       druid:
-        # 池初始化大小
+        keepAlive: true
         initial-size: 8
-        # 最少存活连接数
-        min-idle: 2
-        # 最多活跃连接数
+        min-idle: 8
         maxActive: 16
-        # 获取连接等待超时时间
         maxWait: 60000
-        # 空闲连接检测间隔
-        timeBetweenEvictionRunsMillis: 60000
-        # 最小生存时间
-        minEvictableIdleTimeMillis: 300000
+        minEvictableIdleTimeMillis: 600000
         validationQuery: SELECT 1 FROM DUAL
-        testWhileIdle: true
         testOnBorrow: false
-        testOnReturn: false
+        test-on-return: false
+        testWhileIdle: true
         poolPreparedStatements: true
-        maxPoolPreparedStatementPerConnectionSize: 20
-        # stat 监控统计
-        # wall 防御SQL注入
-        filters: stat,wall,log4j
-        # 开启mergeSql功能
-        # slowSQL
-        useGlobalDataSourceStat: true
+        share-prepared-statements: true
+        maxPoolPreparedStatementPerConnectionSize: 100
+        filters: stat,wall,log4j;
       datasource:
         private:
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://162.14.75.32:3306/cotton
           username: root
           password: dd20021120
-#        public:
-#          driver-class-name: com.mysql.cj.jdbc.Driver
-#          url: jdbc:mysql://122.205.95.110:3366/cotton
-#          username: root
-#          password: root
 springdoc:
   api-docs:
     enabled: true
@@ -67,6 +45,4 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /docs-ui
-server:
-  port: 8080
 
