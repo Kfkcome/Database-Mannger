@@ -31,7 +31,8 @@ public enum ResponseResultCode {
     NOT_LOGIN("B0006", "未登录"),
     AUTHEMTICATION_FAIL("B0007", "认证失败，请重新登录"),
     ERROR("B0008","请求失败"),
-    ERROR_CONDITION("B0009", "错误条件");
+    ERROR_CONDITION("B0009", "输入参数格式错误"),
+    ERRPR_PAGE("B0010","页码溢出");
 
     private final String code;
     private final String message;

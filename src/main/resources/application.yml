@@ -29,7 +29,7 @@ spring:
         poolPreparedStatements: true
         share-prepared-statements: true
         maxPoolPreparedStatementPerConnectionSize: 100
-        filters: stat,wall,log4j;
+        filters: stat;
       datasource:
         private:
           driver-class-name: com.mysql.cj.jdbc.Driver

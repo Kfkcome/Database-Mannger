@@ -1,29 +1,23 @@
 package com.example.swinedatebaseproject.controller.data.special;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.swinedatebaseproject.constant.MyBatisConstants;
 import com.example.swinedatebaseproject.domain.*;
+import com.example.swinedatebaseproject.response.PageResult;
 import com.example.swinedatebaseproject.response.ResponseResultCode;
 import com.example.swinedatebaseproject.service.*;
-import com.sun.tools.javac.Main;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.comparator.Comparators;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
-import java.sql.Array;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;
 
 /**
@@ -75,6 +69,9 @@ public class SnpInfoController {
 
     // todo 补全
     private Map<String, GeneEntry> geneInfo;
+
+    private List<Object> cacheResult = new ArrayList<>();
+    protected int cachePageSize;
 
 
     @GetMapping("/search-gene-by-id")
@@ -194,7 +191,7 @@ public class SnpInfoController {
         wrapper.ge("start", startAndEnd.get(0));
         wrapper.le("end", startAndEnd.get(1));
 
-        return geneInfo.values().stream()
+        cacheResult = geneInfo.values().stream()
                 .flatMap(geneEntry -> {
                     Class geneClass = geneEntry.getGeneClass();
                     IService geneService = geneEntry.getGeneService();
@@ -233,6 +230,33 @@ public class SnpInfoController {
                             .filter(Objects::nonNull);
                 })
                 .toList();
+        if (cacheResult.size() == 0) {
+            return ResponseResultCode.DATA_NOT_FOUND;
+        } else if (cacheResult.size() <= MyBatisConstants.PAGE_SIZE) {
+            cachePageSize = 1;
+        } else {
+            int size = cacheResult.size();
+            cachePageSize = size % MyBatisConstants.PAGE_SIZE == 0 ? size / MyBatisConstants.PAGE_SIZE : size / MyBatisConstants.PAGE_SIZE + 1;
+        }
+        return getPageFromCacheResult(1);
+    }
+
+    private PageResult getPageFromCacheResult(int current) {
+        List<Object> data;
+        if (current == cachePageSize) {
+            data = cacheResult.subList((current - 1) * MyBatisConstants.PAGE_SIZE, cacheResult.size() - 1);
+        } else {
+            data = cacheResult.subList((current - 1) * MyBatisConstants.PAGE_SIZE, current * MyBatisConstants.PAGE_SIZE - 1);
+        }
+        return new PageResult(cachePageSize, 1, data);
+    }
+
+    @GetMapping("/search-gene-by-region/page/{current}")
+    public Object searchGeneByRegionPage(@PathVariable int current) {
+        if (current > cachePageSize) {
+            return ResponseResultCode.ERRPR_PAGE;
+        }
+        return getPageFromCacheResult(current);
     }
 
     @GetMapping("/page-count")
@@ -256,7 +280,7 @@ public class SnpInfoController {
         return snpInfoService.list(wrapper);
     }
 
-    @GetMapping("/other-data")
+    @GetMapping("/select-other-data")
     public Object getOtherData(@RequestParam String chrom,@RequestParam Integer pos) {
         QueryWrapper wrapper = new QueryWrapper<>();
         wrapper.eq("CHROM", chrom);
@@ -306,4 +330,6 @@ public class SnpInfoController {
             throw new RuntimeException(e);
         }
     }
+
+
 }
