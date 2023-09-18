@@ -10,7 +10,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class PageResult {
-    private int size;
+    private int pageSize;
     private int current;
+    private int rowSize;
     private Object data;
 }

@@ -23,4 +23,6 @@ public class MyBatisPlusConfig {
         interceptor.addInnerInterceptor(pageInterceptor);
         return interceptor;
     }
+
+
 }

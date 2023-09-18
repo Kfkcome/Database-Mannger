@@ -10,18 +10,17 @@ spring:
     servlet:
       load-on-startup: 1
   datasource:
-   dynamic:
-      p6spy: true
+    dynamic:
       primary: private
       strict: false
-      lazy: true
+      p6spy: true
       druid:
         keepAlive: true
-        initial-size: 8
-        min-idle: 8
-        maxActive: 16
+        initial-size: 4
+        min-idle: 4
+        maxActive: 30
         maxWait: 60000
-        minEvictableIdleTimeMillis: 600000
+        minEvictableIdleTimeMillis: 60000
         validationQuery: SELECT 1 FROM DUAL
         testOnBorrow: false
         test-on-return: false
@@ -29,7 +28,6 @@ spring:
         poolPreparedStatements: true
         share-prepared-statements: true
         maxPoolPreparedStatementPerConnectionSize: 100
-        filters: stat;
       datasource:
         private:
           driver-class-name: com.mysql.cj.jdbc.Driver
@@ -45,4 +43,6 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /docs-ui
-
+mybatis-plus:
+  global-config:
+    banner: false

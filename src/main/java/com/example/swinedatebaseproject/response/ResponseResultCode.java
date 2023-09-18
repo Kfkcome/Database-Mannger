@@ -5,7 +5,7 @@ import lombok.Getter;
 
 /**
  * @Author 刘铭康
- * @Date  2022/11/14
+ * @Date 2022/11/14
  */
 @Getter
 @AllArgsConstructor
@@ -30,9 +30,10 @@ public enum ResponseResultCode {
     NOT_REGISTER("B0005", "未注册"),
     NOT_LOGIN("B0006", "未登录"),
     AUTHEMTICATION_FAIL("B0007", "认证失败，请重新登录"),
-    ERROR("B0008","请求失败"),
+    ERROR("B0008", "请求失败，请重新请求"),
     ERROR_CONDITION("B0009", "输入参数格式错误"),
-    ERRPR_PAGE("B0010","页码溢出");
+    ERRPR_PAGE("B0010", "页码溢出"),
+    REQUEST_TIMEOUT("B0011", "请求超时");
 
     private final String code;
     private final String message;

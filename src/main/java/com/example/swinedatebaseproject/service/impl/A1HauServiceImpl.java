@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author s1mple
 * @description 针对表【A1_HAU】的数据库操作Service实现
-* @createDate 2023-04-16 14:58:42
+* @createDate 2023-08-23 18:05:24
 */
 @Service
 public class A1HauServiceImpl extends ServiceImpl<A1HauMapper, A1Hau>

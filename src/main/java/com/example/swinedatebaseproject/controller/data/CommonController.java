@@ -42,6 +42,7 @@ public abstract class CommonController<T> {
     public IService<T> service;
     public Class<?> thisClass;
     public String queryColumnName;
+
     public List<String> fieldNames;
 
     public CommonController(String queryColumnName) {

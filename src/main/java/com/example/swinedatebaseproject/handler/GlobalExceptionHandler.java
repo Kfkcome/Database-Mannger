@@ -4,6 +4,7 @@ import com.example.swinedatebaseproject.exception.GenerateException;
 import com.example.swinedatebaseproject.exception.TargetDateNotFoundException;
 import com.example.swinedatebaseproject.response.ResponseResult;
 import com.example.swinedatebaseproject.response.ResponseResultCode;
+import com.mysql.cj.exceptions.StatementIsClosedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-
     @ExceptionHandler({TargetDateNotFoundException.class})
     public ResponseResult handleException(TargetDateNotFoundException e) {
         log.error(e.getMessage());
@@ -27,6 +27,12 @@ public class GlobalExceptionHandler {
     public ResponseResult handleGenerateException(GenerateException e) {
         log.error(e.getMessage());
         return ResponseResult.error(ResponseResultCode.ADD_FAIL.getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler({StatementIsClosedException.class})
+    public ResponseResultCode handleStatementIsClosedException(Exception e) {
+        log.error(e.getMessage());
+        return ResponseResultCode.REQUEST_TIMEOUT;
     }
 
 }

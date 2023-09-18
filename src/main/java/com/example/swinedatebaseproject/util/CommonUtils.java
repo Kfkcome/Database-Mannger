@@ -34,21 +34,10 @@ public class CommonUtils {
 
 
     public static void main(String[] args) throws InterruptedException {
-
+        System.out.println(111);
     }
 
     private Object result;
-
-    public synchronized Object getResult(long mills) throws InterruptedException {
-        long future = System.currentTimeMillis() + mills;
-        long remaing = mills;
-        while (result == null && remaing > 0) {
-            wait(remaing);
-            remaing = future - System.currentTimeMillis();
-        }
-        return result;
-    }
-
 
 
 }

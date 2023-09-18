@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author s1mple
 * @description 针对表【snp_info】的数据库操作Service实现
-* @createDate 2023-05-30 21:54:00
+* @createDate 2023-06-25 21:51:51
 */
 @Service
 public class SnpInfoServiceImpl extends ServiceImpl<SnpInfoMapper, SnpInfo>
