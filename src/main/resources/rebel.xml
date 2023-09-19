@@ -9,7 +9,7 @@
 	<id>SwineDateBaseProject</id>
 
 	<classpath>
-		<dir name="E:/tools/Java_Project/SwineDateBaseProject/target/classes">
+		<dir name="${rebel.projectpath.swinedatebaseproject}/target/classes">
 		</dir>
 	</classpath>
 

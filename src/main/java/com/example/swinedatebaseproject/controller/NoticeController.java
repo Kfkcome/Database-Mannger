@@ -16,7 +16,7 @@ import java.util.Objects;
  * @Author 刘铭康
  * @Date 2022/11/14
  */
-@RequestMapping(value = "/notice", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
+@RequestMapping(value = "notice", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
 @RestController
 public class NoticeController {
 
@@ -25,13 +25,13 @@ public class NoticeController {
 
     @PostMapping("/add")
     public void addNotice(@RequestBody Notice notice) {
-        if (Objects.isNull(notice.getTitle()) || "".equals(notice.getTitle())){
+        if (Objects.isNull(notice.getTitle()) || "".equals(notice.getTitle())) {
             notice.setTitle("公告");
         }
-        if (Objects.isNull(notice.getContent()) || "".equals(notice.getContent())){
+        if (Objects.isNull(notice.getContent()) || "".equals(notice.getContent())) {
             notice.setContent("无内容");
         }
-        if (Objects.isNull(notice.getStartTime())){
+        if (Objects.isNull(notice.getStartTime())) {
             notice.setStartTime(LocalDateTime.now());
         }
         if (Objects.isNull(notice.getEndTime())) {
@@ -39,10 +39,12 @@ public class NoticeController {
         }
         noticeService.save(notice);
     }
+
     @DeleteMapping("/delete/{id}")
     public void deleteNotice(@PathVariable("id") Integer id) {
         noticeService.removeById(id);
     }
+
     @GetMapping("/get")
     public ResponseResult getNotices() {
         List<Notice> list = noticeService.list();
@@ -66,5 +68,10 @@ public class NoticeController {
         }).toList();
 
         return ResponseResultUtils.getSuccessResponseResult("notices", notices);
+    }
+
+    @RequestMapping("/test")
+    public void test() {
+
     }
 }

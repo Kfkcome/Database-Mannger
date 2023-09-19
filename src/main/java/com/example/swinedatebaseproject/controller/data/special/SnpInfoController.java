@@ -83,7 +83,6 @@ public class SnpInfoController {
         };
     }
 
-
     @GetMapping("/search-gene-by-id")
     public Object searchGeneById(@RequestParam String value) {
 
@@ -192,7 +191,6 @@ public class SnpInfoController {
         Long middleNum;
         Long highNum;
     }
-
 
     /**
      * @param value
@@ -344,7 +342,6 @@ public class SnpInfoController {
 
     }
 
-
     private Object getPageFromCacheResult(int current, List<Object> result) {
         int pageSize;
         if (result.size() == 0) {
@@ -451,11 +448,6 @@ public class SnpInfoController {
         Long midNum;
         Long highNum;
         Long modifierNum;
-
-        /**
-         * low mid high modifier
-         */
-
     }
 
     public void doOperation() throws DataFormatException {
@@ -470,7 +462,7 @@ public class SnpInfoController {
         }
     }
 
-    private final ExecutorService THREAD_POOL = new ThreadPoolExecutor(4, 8, 30 * 60, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1024));
+    private final ExecutorService THREAD_POOL = new ThreadPoolExecutor(8, 16, 30 * 10, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1024));
 
     private static class MapTask implements Runnable {
         private IService service;
@@ -487,9 +479,25 @@ public class SnpInfoController {
             return Wrappers.query().eq("CHROM", chrom).eq("POS", pos);
         }
 
+        private static final List<String> regions = new ArrayList<>() {
+            {
+                add("Asia");
+                add("Africa");
+                add("SouthAmerica");
+                add("Other");
+                add("NorthAmerica");
+                add("Europe");
+                add("Oceania");
+            }
+        };
+
         private String constructTableName() {
             String serviceName = service.getClass().getSimpleName();
-            serviceName = serviceName.replace("Service", "").replace("Impl", "").replace("Count", "").replace("$$EnhancerBySpringCGLIB$$1", "");
+            for (String region : regions) {
+                if (serviceName.contains(region)) {
+                    return region;
+                }
+            }
             return serviceName;
         }
 
@@ -500,7 +508,7 @@ public class SnpInfoController {
             tableName = constructTableName();
             this.groupTaskFlag = groupTaskFlag;
         }
-        
+
         @Override
         public void run() {
             Object data = service.getOne(queryWrapper);
@@ -533,11 +541,13 @@ public class SnpInfoController {
     @Autowired
     SouthAmericaCountService southAmericaCountService;
 
+    private static final Map<String, Object> regions = new HashMap<>();
 
     @RequestMapping("/map-data")
     public Object getMapData(@RequestParam String chrom, @RequestParam int pos) {
         AtomicInteger groupTaskFlag = new AtomicInteger(0);
         HashMap<String, Object> mapData = new HashMap<>();
+        long startTime = System.currentTimeMillis();
         THREAD_POOL.execute(new MapTask(africaCountService, chrom, pos, mapData, groupTaskFlag));
         THREAD_POOL.execute(new MapTask(asiaCountService, chrom, pos, mapData, groupTaskFlag));
         THREAD_POOL.execute(new MapTask(europeCountService, chrom, pos, mapData, groupTaskFlag));
@@ -549,7 +559,15 @@ public class SnpInfoController {
             if (groupTaskFlag.get() == 7) {
                 return mapData;
             }
+            if (System.currentTimeMillis() - startTime >= 10 * 1000) {
+                return regions;
+            }
         }
     }
+
+    private void test() {
+
+    }
+
 
 }
