@@ -22,7 +22,6 @@ public enum ResponseResultCode {
     DATA_TYPE_ERROR("A0008", "数据类型错误"),
     UPDATE_DATA_FAIL("A0009", "数据更新失败"),
 
-
     LOGIN_SUCCESS("B0001", "登录成功"),
     LOGIN_FAIL("B0002", "登录失败"),
     REGISTER_SUCCESS("B0003", "注册成功"),
@@ -33,7 +32,11 @@ public enum ResponseResultCode {
     ERROR("B0008", "请求失败，请重新请求"),
     ERROR_CONDITION("B0009", "输入参数格式错误"),
     ERRPR_PAGE("B0010", "页码溢出"),
-    REQUEST_TIMEOUT("B0011", "请求超时");
+    REQUEST_TIMEOUT("B0011", "请求超时"),
+    NOT_GENE("B0012", "输入值错误，正确输入值应为feature=gene数据的attribute值"),
+    TABLE_ERROR("B0013", "输入值错误，正确输入值范围仅限于a1hau、a2hau、ad1hau三张表数据"),
+    SERVER_ERROR("B0014", "服务端错误，请重新请求"),
+    SNP_ZERO("B0015", "无对应snp数据");
 
     private final String code;
     private final String message;

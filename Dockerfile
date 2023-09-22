@@ -1,6 +1,9 @@
-FROM amazoncorretto:20
-MAINTAINER 1298154056@qq.com
-WORKDIR /
+FROM openjdk:19
+
+WORKDIR /app
+
+COPY . /app
+
 EXPOSE 8080
-ADD *.jar /app.jar
-ENTRYPOINT ["java", "-jar","app.jar"]
+
+CMD ["java", "-jar","swine-search-project.jar"]

@@ -65,7 +65,7 @@ public class SnpInfoController {
 
     @Autowired
     HirsutumCountService hirsutumCountService;
-    private long snpInfoPageCount = -1l;
+    private long snpInfoPageCount = 18796633l;
     private Map<String, GeneEntry> geneInfo;
     private Map<Integer, Integer> pageAndFirstId = new HashMap<>();
 
@@ -74,7 +74,7 @@ public class SnpInfoController {
         geneInfo = new HashMap<>() {
             {
                 // A1_HAU
-                put("Chr", new GeneEntry("a1_hau", a1HauService, A1Hau.class));
+                put("Gher", new GeneEntry("a1_hau", a1HauService, A1Hau.class));
                 // A2_HAU
                 put("Contig", new GeneEntry("a2_hau", a2HauService, A2Hau.class));
                 // AD1_HAU
@@ -86,11 +86,15 @@ public class SnpInfoController {
     @GetMapping("/search-gene-by-id")
     public Object searchGeneById(@RequestParam String value) {
 
+        if (value.contains(".")) {
+            return ResponseResultCode.NOT_GENE;
+        }
+
         HashMap<String, Object> responseResult = new HashMap<>();
 
         String geneFeaturePrefix = geneInfo.keySet().stream().filter(key -> value.contains(key)).findFirst().orElseGet(() -> null);
         if (Objects.isNull(geneFeaturePrefix) || "".equals(geneFeaturePrefix)) {
-            return ResponseResultCode.DATA_NOT_FOUND;
+            return ResponseResultCode.TABLE_ERROR;
         }
 
         IService geneService = geneInfo.get(geneFeaturePrefix).getGeneService();
@@ -104,7 +108,7 @@ public class SnpInfoController {
             startField.setAccessible(true);
             endField.setAccessible(true);
         } catch (NoSuchFieldException e) {
-            return ResponseResultCode.DATA_NOT_FOUND;
+            return ResponseResultCode.SERVER_ERROR;
         }
 
         QueryWrapper<Object> geneListQueryWrapper = new QueryWrapper<>();
@@ -143,6 +147,9 @@ public class SnpInfoController {
             snpInfoQueryWrapper.ge("pos", startValue);
             snpInfoQueryWrapper.le("pos", endValue);
             List<SnpInfo> snpInfoList = snpInfoService.list(snpInfoQueryWrapper);
+            if (snpInfoList.size() == 0) {
+                return ResponseResultCode.SNP_ZERO;
+            }
             responseResult.put("snpNum", snpInfoList.size());
 
             List finalGeneList = geneList;
@@ -170,9 +177,8 @@ public class SnpInfoController {
             responseResult.put("modifierNum", numGroup.getModiNum());
 
         } catch (Exception e) {
-            return ResponseResultCode.DATA_NOT_FOUND;
+            return ResponseResultCode.SERVER_ERROR;
         }
-
         return responseResult;
     }
 
@@ -557,6 +563,9 @@ public class SnpInfoController {
         THREAD_POOL.execute(new MapTask(oceaniaCountService, chrom, pos, mapData, groupTaskFlag));
         while (true) {
             if (groupTaskFlag.get() == 7) {
+                if (mapData.size() == 0) {
+                    return ResponseResultCode.DATA_NOT_FOUND;
+                }
                 return mapData;
             }
             if (System.currentTimeMillis() - startTime >= 10 * 1000) {

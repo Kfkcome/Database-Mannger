@@ -1,6 +1,5 @@
 package com.example.swinedatebaseproject.controller.data;
 
-
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelReader;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -12,7 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.swinedatebaseproject.constant.CommonConstants;
 import com.example.swinedatebaseproject.constant.DomainUnit;
 import com.example.swinedatebaseproject.constant.MyBatisConstants;
-import com.example.swinedatebaseproject.domain.Cds;
 import com.example.swinedatebaseproject.listener.CommonReadListener;
 import com.example.swinedatebaseproject.response.ResponseResult;
 import com.example.swinedatebaseproject.response.ResponseResultCode;
@@ -51,7 +49,7 @@ public abstract class CommonController<T> {
         String className = simpleName.replace("Controller", "");
 
         try {
-            if(Objects.isNull(thisClass = DomainUnit.NAME_CLASS_MAP.get(className))){
+            if (Objects.isNull(thisClass = DomainUnit.NAME_CLASS_MAP.get(className))) {
                 thisClass = Class.forName("com.example.swinedatebaseproject.domain." + className);
                 DomainUnit.NAME_CLASS_MAP.put(className, this.thisClass);
             }
@@ -81,7 +79,7 @@ public abstract class CommonController<T> {
     public abstract ResponseResult getFieldNames();
 
     public ResponseResult getFieldNamesActual() {
-        return ResponseResultUtils.getSuccessResponseResult("fieldNames",fieldNames);
+        return ResponseResultUtils.getSuccessResponseResult("fieldNames", fieldNames);
     }
 
 
@@ -108,7 +106,7 @@ public abstract class CommonController<T> {
     }
 
     public abstract ResponseResult getPageCount();
-    
+
     public ResponseResult getPageCountActual() {
         Long totalRows = service.count();
         Long pageCount = totalRows % MyBatisConstants.PAGE_SIZE == 0 ? totalRows / MyBatisConstants.PAGE_SIZE : totalRows / MyBatisConstants.PAGE_SIZE + 1;
@@ -139,7 +137,7 @@ public abstract class CommonController<T> {
     }
 
     public abstract ResponseResult getRowsSize();
-    
+
     public ResponseResult getRowsSizeActual() {
         Long totalRows = service.count();
         return ResponseResultUtils.getSuccessResponseResult("rowsSize", totalRows);
@@ -148,13 +146,13 @@ public abstract class CommonController<T> {
     public abstract ResponseResult getData(String name);
 
     public ResponseResult getDataActual(String name) {
-        if (name.length()!=21) {
+        if (name.length() != 21) {
             return ResponseResult.error(ResponseResultCode.DATA_NOT_FOUND.getCode(), ResponseResultCode.DATA_NOT_FOUND.getMessage());
         }
         QueryWrapper<T> queryWrapper = new QueryWrapper<>();
         queryWrapper.like(queryColumnName, name);
         List<T> list = service.list(queryWrapper);
-        if (list.size()>10) {
+        if (list.size() > 10) {
             return ResponseResult.error(ResponseResultCode.DATA_NOT_FOUND.getCode(), ResponseResultCode.DATA_NOT_FOUND.getMessage());
         }
         return ResponseResultUtils.getResponseResult(thisClass, list);
@@ -168,7 +166,7 @@ public abstract class CommonController<T> {
 
         String originalFilename = multipartFile.getOriginalFilename();
         int i = originalFilename.indexOf(".");
-        String fileType = originalFilename.substring(i+1);
+        String fileType = originalFilename.substring(i + 1);
         String fileName = originalFilename.substring(0, i) + "_" + fileSuffix + "." + fileType;
 
         if (Boolean.FALSE.equals(CommonConstants.FILE_TYPES.contains(fileType))) {
@@ -176,12 +174,12 @@ public abstract class CommonController<T> {
         }
 
         if (systemProperty.toUpperCase().contains("WINDOW")) {
-            File file = new File(CommonConstants.WINDOW_FILE_PATH_TEST+fileName);
+            File file = new File(CommonConstants.WINDOW_FILE_PATH_TEST + fileName);
             return saveData(multipartFile, file);
         } else if (systemProperty.toUpperCase().contains("LINUX")) {
-            File file = new File(CommonConstants.LINUX_FILE_PATH+fileName);
+            File file = new File(CommonConstants.LINUX_FILE_PATH + fileName);
             return saveData(multipartFile, file);
-        }else {
+        } else {
             return ResponseResult.error(ResponseResultCode.ADD_FAIL.getCode(), ResponseResultCode.ADD_FAIL.getMessage());
         }
     }
@@ -203,7 +201,7 @@ public abstract class CommonController<T> {
 
     public abstract ResponseResult searchValueByMultiKey(List<String> values, Integer currentPage);
 
-    public ResponseResult searchValueByMultiKeyActual(List<String> values, Integer currentPage){
+    public ResponseResult searchValueByMultiKeyActual(List<String> values, Integer currentPage) {
 
         if (currentPage <= 0) {
             return ResponseResult.success();
@@ -232,7 +230,7 @@ public abstract class CommonController<T> {
                     put("pageSize", pageSize);
                 }
             };
-        }else{
+        } else {
             map = new HashMap<>() {
                 {
                     put("recordList", null);
@@ -253,7 +251,7 @@ public abstract class CommonController<T> {
         try {
             if (service.save(object)) {
                 return ResponseResult.success();
-            }else{
+            } else {
                 return ResponseResult.error(ResponseResultCode.ADD_FAIL.getCode(), "添加数据失败，可能存在主键冲突或类型匹配");
             }
         } catch (Exception e) {
@@ -275,7 +273,7 @@ public abstract class CommonController<T> {
         }
 
         if (service.update(object, wrapper)) {
-            return ResponseResult.success(ResponseResultCode.SUCCESS.getCode(),"数据更新成功");
+            return ResponseResult.success(ResponseResultCode.SUCCESS.getCode(), "数据更新成功");
         } else {
             return ResponseResult.error(ResponseResultCode.UPDATE_DATA_FAIL.getCode(), ResponseResultCode.UPDATE_DATA_FAIL.getMessage());
         }
@@ -296,7 +294,7 @@ public abstract class CommonController<T> {
 
         if (service.remove(wrapper)) {
             return ResponseResult.success(ResponseResultCode.DELETE_SUCCESS.getCode(), ResponseResultCode.DELETE_SUCCESS.getMessage());
-        }else{
+        } else {
             return ResponseResult.success(ResponseResultCode.DELETE_FAIL.getCode(), ResponseResultCode.DELETE_FAIL.getMessage());
         }
 
@@ -307,15 +305,15 @@ public abstract class CommonController<T> {
     public ResponseResult deleteBatchOnMainTableActual(List<T> values) {
         AtomicInteger deletedRowCount = new AtomicInteger();
         ArrayList<QueryWrapper<T>> wrappers = new ArrayList<>();
-        values.forEach(t->{
+        values.forEach(t -> {
             QueryWrapper<T> wrapper = new QueryWrapper<>();
-            fieldNames.forEach(fieldName->{
+            fieldNames.forEach(fieldName -> {
                 try {
                     Field field = thisClass.getDeclaredField(fieldName);
                     TableId tableId;
                     TableField tableName;
                     String columnName = "";
-                    if (Objects.nonNull(tableId= field.getAnnotation(TableId.class))) {
+                    if (Objects.nonNull(tableId = field.getAnnotation(TableId.class))) {
                         columnName = tableId.value();
                     } else if (Objects.nonNull(tableName = field.getAnnotation(TableField.class))) {
                         columnName = tableName.value();
@@ -363,8 +361,7 @@ public abstract class CommonController<T> {
 
 
     }
-
-
+    
     // <-----------------------------------------private method----------------------------------------------------------------------->
 
     @Nullable
@@ -427,7 +424,7 @@ public abstract class CommonController<T> {
                 TableId tableId;
                 TableField tableName;
                 String columnName = "";
-                if (Objects.nonNull(tableId= field.getAnnotation(TableId.class))) {
+                if (Objects.nonNull(tableId = field.getAnnotation(TableId.class))) {
                     columnName = tableId.value();
                 } else if (Objects.nonNull(tableName = field.getAnnotation(TableField.class))) {
                     columnName = tableName.value();
@@ -464,7 +461,7 @@ public abstract class CommonController<T> {
                 TableId tableId;
                 TableField tableName;
                 String columnName = "";
-                if (Objects.nonNull(tableId= field.getAnnotation(TableId.class))) {
+                if (Objects.nonNull(tableId = field.getAnnotation(TableId.class))) {
                     columnName = tableId.value();
                 } else if (Objects.nonNull(tableName = field.getAnnotation(TableField.class))) {
                     columnName = tableName.value();
@@ -501,7 +498,7 @@ public abstract class CommonController<T> {
     }
 
     @Getter
-    static class NullValueFlag{
+    static class NullValueFlag {
         private Integer count;
 
         public NullValueFlag() {
@@ -512,10 +509,6 @@ public abstract class CommonController<T> {
             count++;
         }
     }
-
-
-
-
 
 
 }
