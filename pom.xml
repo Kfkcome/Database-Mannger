@@ -12,7 +12,7 @@
     <description>SwineDateBaseProject</description>
 
     <properties>
-        <java.version>18</java.version>
+        <java.version>20</java.version>
     </properties>
 
     <parent>
