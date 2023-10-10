@@ -1,9 +1,9 @@
 package com.example.swinedatebaseproject.controller.user;
 
 import com.example.swinedatebaseproject.domain.CommonUser;
-import com.example.swinedatebaseproject.service.RegisterService;
 import com.example.swinedatebaseproject.response.ResponseResult;
 import com.example.swinedatebaseproject.response.ResponseResultCode;
+import com.example.swinedatebaseproject.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -31,9 +31,9 @@ spring:
       datasource:
         private:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://162.14.75.32:3306/cotton
+          url: jdbc:mysql://122.205.95.110:3366/biology
           username: root
-          password: dd20021120
+          password: root
 springdoc:
   api-docs:
     enabled: true
