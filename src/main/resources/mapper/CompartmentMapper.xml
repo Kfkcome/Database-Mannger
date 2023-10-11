@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.CompartmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.Compartment">
+            <id property="id" column="ID" jdbcType="INTEGER"/>
+            <result property="csId" column="CS_ID" jdbcType="CHAR"/>
+            <result property="startPoint" column="START_POINT" jdbcType="INTEGER"/>
+            <result property="endPoint" column="END_POINT" jdbcType="INTEGER"/>
+            <result property="value" column="VALUE" jdbcType="DOUBLE"/>
+            <result property="softwareId" column="SOFTWARE_ID" jdbcType="INTEGER"/>
+            <result property="tissueId" column="TISSUE_ID" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,CS_ID,START_POINT,
+        END_POINT,VALUE,SOFTWARE_ID,
+        TISSUE_ID
+    </sql>
+</mapper>

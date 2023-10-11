@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.RnaMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.Rna">
+            <id property="mrnaId" column="mRNA_ID" jdbcType="INTEGER"/>
+            <result property="csId" column="CS_ID" jdbcType="INTEGER"/>
+            <result property="mrnaName" column="mRNA_NAME" jdbcType="CHAR"/>
+            <result property="startPoint" column="START_POINT" jdbcType="BIGINT"/>
+            <result property="endPoint" column="END_POINT" jdbcType="BIGINT"/>
+            <result property="direction" column="DIRECTION" jdbcType="INTEGER"/>
+            <result property="tissueId" column="TISSUE_ID" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        mRNA_ID,CS_ID,mRNA_NAME,
+        START_POINT,END_POINT,DIRECTION,
+        TISSUE_ID
+    </sql>
+</mapper>

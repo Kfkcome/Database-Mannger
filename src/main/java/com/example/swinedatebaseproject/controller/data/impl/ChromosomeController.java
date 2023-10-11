@@ -2,8 +2,8 @@ package com.example.swinedatebaseproject.controller.data.impl;
 
 import com.example.swinedatebaseproject.controller.data.CommonController;
 import com.example.swinedatebaseproject.response.ResponseResult;
-import com.example.swinedatebaseproject.domain.A2Hau;
-import com.example.swinedatebaseproject.service.A2HauService;
+import com.example.swinedatebaseproject.domain.Chromosome;
+import com.example.swinedatebaseproject.service.ChromosomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,12 +16,12 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value = "a2Hau",method = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.POST})
-public class A2HauController extends CommonController<A2Hau> {
+@RequestMapping(value = "chromosome",method = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.POST})
+public class ChromosomeController extends CommonController<Chromosome> {
 
 
     @Autowired
-    public A2HauController(A2HauService service) {
+    public ChromosomeController(ChromosomeService service) {
         super("cds_name");
         this.service = service;
     }
@@ -58,13 +58,13 @@ public class A2HauController extends CommonController<A2Hau> {
     
     @DeleteMapping("/delete-single-row")
     @Override
-    public ResponseResult deleteSingleRowById(@RequestBody A2Hau row) {
+    public ResponseResult deleteSingleRowById(@RequestBody Chromosome row) {
         return deleteSingleRowByIdActual(row);
     }
 
     @DeleteMapping("/delete-rows")
     @Override
-    public ResponseResult deleteRowsByIds(@RequestBody List<A2Hau> rows) {
+    public ResponseResult deleteRowsByIds(@RequestBody List<Chromosome> rows) {
         return deleteRowsByIdsActual(rows);
     }
 
@@ -94,13 +94,13 @@ public class A2HauController extends CommonController<A2Hau> {
 
     @PutMapping("/update-single-data")
     @Override
-    public ResponseResult updateSingleData(@RequestParam("values")List<String> values, @RequestBody A2Hau object) {
+    public ResponseResult updateSingleData(@RequestParam("values")List<String> values, @RequestBody Chromosome object) {
         return updateSingleDataActual(values, object);
     }
 
     @PostMapping("/save-single-data")
     @Override
-    public ResponseResult saveSingleData(@RequestBody A2Hau object) {
+    public ResponseResult saveSingleData(@RequestBody Chromosome object) {
         return saveSingleDataActual(object);
     }
 
@@ -112,7 +112,7 @@ public class A2HauController extends CommonController<A2Hau> {
 
     @DeleteMapping("/delete-multi-data-main")
     @Override
-    public ResponseResult deleteBatchOnMainTable(@RequestBody List<A2Hau> values) {
+    public ResponseResult deleteBatchOnMainTable(@RequestBody List<Chromosome> values) {
         return deleteBatchOnMainTableActual(values);
     }
 
@@ -124,4 +124,3 @@ public class A2HauController extends CommonController<A2Hau> {
     }
 
 }
-

@@ -7,9 +7,9 @@ import com.example.swinedatebaseproject.mapper.NoticeMapper;
 import org.springframework.stereotype.Service;
 
 /**
-* @author s1mple
+* @author new
 * @description 针对表【notice】的数据库操作Service实现
-* @createDate 2023-04-16 14:59:22
+* @createDate 2023-10-10 22:13:48
 */
 @Service
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice>

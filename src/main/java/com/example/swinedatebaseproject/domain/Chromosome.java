@@ -9,79 +9,35 @@ import lombok.Data;
 
 /**
  * 
- * @TableName chromosome
+ * @TableName t_chromosome
  */
-@TableName(value ="chromosome")
+@TableName(value ="t_chromosome")
 @Data
 public class Chromosome implements Serializable {
     /**
      * 
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "CS_ID", type = IdType.AUTO)
+    private Integer csId;
 
     /**
      * 
      */
-    @TableField(value = "chr_name")
-    private String chrName;
+    @TableField(value = "CS_NAME")
+    private String csName;
 
     /**
      * 
      */
-    @TableField(value = "chr_num")
-    private String chrNum;
+    @TableField(value = "CS_LENGTH")
+    private Long csLength;
 
     /**
-     * 
+     * 品种id
      */
-    @TableField(value = "chr_source")
-    private String chrSource;
+    @TableField(value = "CULTIVAR_ID")
+    private Integer cultivarId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
-
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        Chromosome other = (Chromosome) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getChrName() == null ? other.getChrName() == null : this.getChrName().equals(other.getChrName()))
-            && (this.getChrNum() == null ? other.getChrNum() == null : this.getChrNum().equals(other.getChrNum()))
-            && (this.getChrSource() == null ? other.getChrSource() == null : this.getChrSource().equals(other.getChrSource()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getChrName() == null) ? 0 : getChrName().hashCode());
-        result = prime * result + ((getChrNum() == null) ? 0 : getChrNum().hashCode());
-        result = prime * result + ((getChrSource() == null) ? 0 : getChrSource().hashCode());
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", chrName=").append(chrName);
-        sb.append(", chrNum=").append(chrNum);
-        sb.append(", chrSource=").append(chrSource);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

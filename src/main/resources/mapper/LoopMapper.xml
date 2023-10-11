@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.LoopMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.Loop">
+            <id property="icId" column="IC_ID" jdbcType="BIGINT"/>
+            <result property="csId" column="CS_ID" jdbcType="INTEGER"/>
+            <result property="startPoint1" column="START_POINT1" jdbcType="BIGINT"/>
+            <result property="endPoint1" column="END_POINT1" jdbcType="BIGINT"/>
+            <result property="startPoint2" column="START_POINT2" jdbcType="BIGINT"/>
+            <result property="endPoint2" column="END_POINT2" jdbcType="BIGINT"/>
+            <result property="icNum" column="IC_NUM" jdbcType="INTEGER"/>
+            <result property="fdrValue" column="FDR_VALUE" jdbcType="DOUBLE"/>
+            <result property="tissueId" column="TISSUE_ID" jdbcType="INTEGER"/>
+            <result property="softwareId" column="SOFTWARE_ID" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        IC_ID,CS_ID,START_POINT1,
+        END_POINT1,START_POINT2,END_POINT2,
+        IC_NUM,FDR_VALUE,TISSUE_ID,
+        SOFTWARE_ID
+    </sql>
+</mapper>

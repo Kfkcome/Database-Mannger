@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.CultivarMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.Cultivar">
+            <id property="cultivarId" column="CULTIVAR_ID" jdbcType="INTEGER"/>
+            <result property="cultivarName" column="CULTIVAR_NAME" jdbcType="CHAR"/>
+            <result property="speciesId" column="SPECIES_ID" jdbcType="INTEGER"/>
+            <result property="csNum" column="CS_NUM" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        CULTIVAR_ID,CULTIVAR_NAME,SPECIES_ID,
+        CS_NUM
+    </sql>
+</mapper>

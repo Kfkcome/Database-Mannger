@@ -9,22 +9,34 @@ import lombok.Data;
 
 /**
  * 
- * @TableName t_species
+ * @TableName t_rna_structure
  */
-@TableName(value ="t_species")
+@TableName(value ="t_rna_structure")
 @Data
-public class Species implements Serializable {
+public class RnaStructure implements Serializable {
     /**
      * 
      */
-    @TableId(value = "SPECIES_ID", type = IdType.AUTO)
-    private Integer speciesId;
+    @TableId(value = "mRNA_ID")
+    private Integer mrnaId;
 
     /**
      * 
      */
-    @TableField(value = "SPECIES_NAME")
-    private String speciesName;
+    @TableField(value = "EXON_ID")
+    private Integer exonId;
+
+    /**
+     * 
+     */
+    @TableField(value = "START_POINT")
+    private Long startPoint;
+
+    /**
+     * 
+     */
+    @TableField(value = "END_POINT")
+    private Long endPoint;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

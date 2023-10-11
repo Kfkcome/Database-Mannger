@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.swinedatebaseproject.mapper.SoftwareMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.swinedatebaseproject.domain.Software">
+            <id property="softwareId" column="SOFTWARE_ID" jdbcType="INTEGER"/>
+            <result property="softwareName" column="SOFTWARE_NAME" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        SOFTWARE_ID,SOFTWARE_NAME
+    </sql>
+</mapper>

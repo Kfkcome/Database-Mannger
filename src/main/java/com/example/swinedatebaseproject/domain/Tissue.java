@@ -9,22 +9,22 @@ import lombok.Data;
 
 /**
  * 
- * @TableName t_species
+ * @TableName t_tissue
  */
-@TableName(value ="t_species")
+@TableName(value ="t_tissue")
 @Data
-public class Species implements Serializable {
+public class Tissue implements Serializable {
     /**
-     * 
+     * 组织id
      */
-    @TableId(value = "SPECIES_ID", type = IdType.AUTO)
-    private Integer speciesId;
+    @TableId(value = "TISSUE_ID", type = IdType.AUTO)
+    private Integer tissueId;
 
     /**
-     * 
+     * 组织名称
      */
-    @TableField(value = "SPECIES_NAME")
-    private String speciesName;
+    @TableField(value = "TISSUE_NAME")
+    private String tissueName;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
